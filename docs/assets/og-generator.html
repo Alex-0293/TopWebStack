@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OG Image Generator</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .og-preview {
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            background: white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .instructions {
+            margin-top: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            text-align: left;
+        }
+        .download-btn {
+            display: inline-block;
+            margin: 20px;
+            padding: 12px 24px;
+            background: #42b983;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 TOP WEB STACK - OG Image</h1>
+        
+        <div class="og-preview">
+            <img src="og-image.svg" alt="TOP WEB STACK OG Image" style="width: 100%; max-width: 1200px; height: auto;">
+        </div>
+        
+        <a href="og-image.svg" download="og-image.svg" class="download-btn">
+            Download SVG
+        </a>
+        
+        <div class="instructions">
+            <h2>Как конвертировать в PNG:</h2>
+            <ol>
+                <li><strong>Онлайн:</strong> Загрузите SVG на <a href="https://convertio.co/svg-png/" target="_blank">convertio.co</a> или <a href="https://www.svgtopng.com/" target="_blank">svgtopng.com</a></li>
+                <li><strong>Figma:</strong> Импортируйте SVG в Figma и экспортируйте как PNG 1200x630</li>
+                <li><strong>Команда (если установлен ImageMagick):</strong><br>
+                    <code>convert og-image.svg -background transparent -size 1200x630 og-image.png</code>
+                </li>
+                <li><strong>Браузер:</strong> Откройте SVG в браузере, сделайте скриншот в разрешении 1200x630</li>
+            </ol>
+            
+            <h3>Характеристики для соцсетей:</h3>
+            <ul>
+                <li><strong>Размер:</strong> 1200x630 пикселей (соотношение 1.91:1)</li>
+                <li><strong>Формат:</strong> PNG или JPEG</li>
+                <li><strong>Размер файла:</strong> до 8MB для Facebook/Telegram</li>
+                <li><strong>Качество:</strong> высокое разрешение для четкого отображения</li>
+            </ul>
+            
+            <p><strong>После конвертации:</strong> замените <code>og-image.svg</code> на <code>og-image.png</code> в папке assets и обновите ссылки в index.html</p>
+        </div>
+    </div>
+</body>
+</html>

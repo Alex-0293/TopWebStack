@@ -1,0 +1,16 @@
+OG Image Placeholder for TOP WEB STACK Course
+
+Size: 1200x630px
+Content should include:
+- 🚀 TOP WEB STACK logo
+- Modern Web Development Course
+- Key technologies: AlmaLinux, Podman, Node.js, PostgreSQL, SigNoz
+- Professional design with tech stack visual
+- Course branding and call to action
+
+Recommended tools:
+- Figma, Canva, or similar design tool
+- Export as PNG or JPEG
+- Optimize for social media sharing
+
+This file should be replaced with actual og-image.png
