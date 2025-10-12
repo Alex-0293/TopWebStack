@@ -19,7 +19,7 @@
 
 ```mermaid
 graph LR
-    subgraph podman_arch["� Podman Architecture"]
+    subgraph podman_arch["📦 Podman Architecture"]
         direction TB
         podman_cli["Podman CLI"]
         fork1["Container 1<br/>(fork)"]

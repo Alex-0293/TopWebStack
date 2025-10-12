@@ -469,12 +469,12 @@ graph LR
     
     subgraph develop_branch["🔧 Develop Branch (Integration)"]
         setup["⚙️ Setup Project"]
-        merge_auth["� Merge Authentication"]
+        merge_auth["🔗 Merge Authentication"]
         merge_api["🔗 Merge REST API"]
         merge_hotfix["🔧 Merge Hotfix"]
     end
     
-    subgraph feature_branches["� Feature Branches"]
+    subgraph feature_branches["🚀 Feature Branches"]
         auth_start["🔐 Start Auth Feature"]
         auth_tests["🧪 Add Auth Tests"]
         api_start["🚀 Start API Feature"]
