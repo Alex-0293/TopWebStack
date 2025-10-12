@@ -18,7 +18,7 @@
 **Почему Git важен в контексте нашего стека:**
 
 ```mermaid
-flowchart LR
+    flowchart TD
     subgraph dev_env["� Среда разработки"]
         developer["👨‍💻<br/>Разработчик"]
         vscode["�<br/>VS Code"]
@@ -36,14 +36,16 @@ flowchart LR
         podman["🐳<br/>Podman<br/>Containers"]
     end
     
-    developer --> vscode
-    vscode --> local_git
+    developer --> |"разработка"| vscode
+    vscode --> |"версионирование"| local_git
     local_git --> |"git push"| github
+    
     github --> |"webhook"| komodo
-    github --> |"CI/CD"| actions
-    actions --> |"deploy"| komodo
-    komodo --> |"container mgmt"| almalinux
-    almalinux --> podman
+    github --> |"триггер"| actions
+    actions --> |"автодеплой"| komodo
+    
+    komodo --> |"оркестрация"| almalinux
+    almalinux --> |"запуск контейнеров"| podman
     
     style dev_env fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
     style cloud fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
@@ -447,46 +449,61 @@ git remote -v
 ### Рекомендуемый Git Flow
 
 ```mermaid
-gitgraph
-    commit id: "🎯 Initial"
-    branch develop
-    checkout develop
-    commit id: "⚙️ Setup"
+flowchart TB
+    subgraph main_branch["🎯 Main Branch (Production)"]
+        initial["🎯 Initial Commit"]
+        v1_0["🎉 Release v1.0"]
+        v1_0_1["🔧 Hotfix v1.0.1"]
+    end
     
-    branch feature/auth
-    checkout feature/auth
-    commit id: "🔐 Auth"
-    commit id: "🧪 Tests"
+    subgraph develop_branch["🔧 Develop Branch (Integration)"]
+        setup["⚙️ Setup Project"]
+        merge_auth["� Merge Authentication"]
+        merge_api["🔗 Merge REST API"]
+        merge_hotfix["🔧 Merge Hotfix"]
+    end
     
-    checkout develop
-    merge feature/auth
-    commit id: "🔗 Merge auth"
+    subgraph feature_branches["� Feature Branches"]
+        auth_start["🔐 Start Auth Feature"]
+        auth_tests["🧪 Add Auth Tests"]
+        api_start["🚀 Start API Feature"]
+        api_docs["📝 Add API Docs"]
+    end
     
-    branch feature/api
-    checkout feature/api
-    commit id: "🚀 API"
-    commit id: "📝 Docs"
+    subgraph hotfix_branch["🛡️ Hotfix Branch"]
+        security_fix["🛡️ Security Patch"]
+    end
     
-    checkout develop
-    merge feature/api
-    commit id: "🔗 Merge API"
+    initial --> setup
+    setup --> auth_start
+    auth_start --> auth_tests
+    auth_tests --> merge_auth
     
-    checkout main
-    merge develop
-    commit id: "🎉 v1.0"
+    merge_auth --> api_start
+    api_start --> api_docs
+    api_docs --> merge_api
     
-    checkout develop
-    branch hotfix/security
-    checkout hotfix/security
-    commit id: "🛡️ Security"
+    merge_api --> v1_0
     
-    checkout main
-    merge hotfix/security
-    commit id: "🔧 v1.0.1"
+    v1_0 --> security_fix
+    security_fix --> v1_0_1
+    security_fix --> merge_hotfix
     
-    checkout develop
-    merge hotfix/security
+    style main_branch fill:#e8f5e8,stroke:#4caf50,stroke-width:3px
+    style develop_branch fill:#e3f2fd,stroke:#2196f3,stroke-width:2px
+    style feature_branches fill:#fff3e0,stroke:#ff9800,stroke-width:2px
+    style hotfix_branch fill:#ffebee,stroke:#f44336,stroke-width:2px
+    
+    style v1_0 fill:#4caf50,color:#fff
+    style v1_0_1 fill:#4caf50,color:#fff
 ```
+
+**Git Flow последовательность:**
+
+1. **🎯 Main Branch** — стабильные релизы
+2. **🔧 Develop Branch** — активная разработка  
+3. **🚀 Feature Branches** — новые функции
+4. **🛡️ Hotfix Branch** — критические исправления
 
 ### Структура веток
 
