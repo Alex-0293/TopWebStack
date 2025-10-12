@@ -152,6 +152,28 @@
         }
       }
       
+      /* Safari iOS specific fixes */
+      @supports (-webkit-touch-callout: none) {
+        .theme-switcher {
+          -webkit-appearance: none;
+          appearance: none;
+          -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+          -webkit-user-select: none;
+          user-select: none;
+          -webkit-touch-callout: none;
+          transform: translateZ(0);
+          backface-visibility: hidden;
+          -webkit-backface-visibility: hidden;
+        }
+      }
+      
+      /* iOS Safari clickability fix */
+      .theme-switcher {
+        -webkit-appearance: button;
+        -moz-appearance: button;
+        appearance: button;
+      }
+      
       /* Dark theme adjustments */
       [data-theme="dark"] .theme-switcher {
         background: #ffd700;
@@ -336,14 +358,54 @@
           setTheme(newTheme);
         }
         
-        // Add multiple event listeners for better mobile compatibility
-        themeSwitcher.addEventListener('click', handleThemeSwitch);
-        themeSwitcher.addEventListener('touchend', handleThemeSwitch);
+        // Safari iOS compatibility fixes
+        let touchStarted = false;
         
-        // Prevent default touch behavior to avoid conflicts
+        // Touch start handler for Safari
         themeSwitcher.addEventListener('touchstart', function(event) {
+          touchStarted = true;
           event.preventDefault();
+          // Add active class for immediate feedback
+          themeSwitcher.style.transform = 'scale(0.95)';
         });
+        
+        // Touch end handler with Safari-specific logic
+        themeSwitcher.addEventListener('touchend', function(event) {
+          event.preventDefault();
+          event.stopPropagation();
+          
+          // Remove active state
+          themeSwitcher.style.transform = '';
+          
+          if (touchStarted) {
+            touchStarted = false;
+            // Add small delay for Safari
+            setTimeout(handleThemeSwitch, 10);
+          }
+        });
+        
+        // Touch cancel handler for Safari
+        themeSwitcher.addEventListener('touchcancel', function(event) {
+          touchStarted = false;
+          themeSwitcher.style.transform = '';
+        });
+        
+        // Click handler for desktop and fallback
+        themeSwitcher.addEventListener('click', function(event) {
+          // Prevent double trigger on touch devices
+          if (!touchStarted) {
+            handleThemeSwitch(event);
+          }
+        });
+        
+        // iOS Safari specific fix - ensure button is clickable
+        if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+          themeSwitcher.style.cursor = 'pointer';
+          themeSwitcher.addEventListener('ontouchstart' in window ? 'touchend' : 'click', function(event) {
+            event.preventDefault();
+            setTimeout(handleThemeSwitch, 50);
+          });
+        }
         
         // Auto-detect system preference (optional)
         if (savedTheme === 'auto' || !savedTheme) {
