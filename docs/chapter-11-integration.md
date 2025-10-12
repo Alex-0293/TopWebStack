@@ -2,9 +2,9 @@
 
 ---
 
-# Глава 10. Интеграция всех компонентов
+# Глава 11. Интеграция всех компонентов
 
-## 10.1. Архитектура финального решения
+## 11.1. Архитектура финального решения
 
 ### Обзор системы
 
@@ -85,7 +85,7 @@ graph TB
 
 ---
 
-## 10.2. Podman Compose для всего стека
+## 11.2. Podman Compose для всего стека
 
 ### Создание полного docker-compose.yml
 
@@ -396,7 +396,7 @@ ZITADEL_CLIENT_SECRET=your_client_secret_from_zitadel
 
 ---
 
-## 10.3. Сетевое взаимодействие контейнеров
+## 11.3. Сетевое взаимодействие контейнеров
 
 ### Создание сетей
 
@@ -440,7 +440,7 @@ podman exec eventbrain-api nc -zv redis 6379
 
 ---
 
-## 10.4. Управление секретами
+## 11.4. Управление секретами
 
 ### Использование Podman secrets
 
@@ -490,7 +490,7 @@ SESSION_TIMEOUT=3600
 
 ---
 
-## 10.5. CI/CD с GitLab
+## 11.5. CI/CD с GitLab
 
 ### Создание .gitlab-ci.yml
 
@@ -616,5 +616,5 @@ podman exec eventbrain-api ping -c 1 postgres
 
 **Навигация:**
 - [← Вернуться к содержанию](index.md)
-- [← Глава 9: Zitadel IAM: централизованная аутентификация](chapter-09-zitadel.md)
-- [→ Глава 11: Production-ready практики](chapter-11-production.md)
+- [← Глава 10: Zitadel IAM: централизованная аутентификация](chapter-10-zitadel.md)
+- [→ Глава 12: Production-ready практики](chapter-12-production.md)

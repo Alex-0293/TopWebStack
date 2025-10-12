@@ -2,9 +2,9 @@
 
 ---
 
-# Глава 8. SigNoz: мониторинг и observability
+# Глава 9. SigNoz: мониторинг и observability
 
-## 8.1. Что такое SigNoz и OpenTelemetry
+## 9.1. Что такое SigNoz и OpenTelemetry
 
 **SigNoz** — open-source платформа для observability (мониторинг, трейсинг, логирование).
 
@@ -106,7 +106,7 @@ graph LR
 
 ---
 
-## 8.2. Развертывание SigNoz stack
+## 9.2. Развертывание SigNoz stack
 
 ### Подготовка
 
@@ -337,7 +337,7 @@ podman-compose logs -f
 
 ---
 
-## 8.3. Интеграция с Node.js приложением
+## 9.3. Интеграция с Node.js приложением
 
 ### Установка OpenTelemetry SDK
 
@@ -586,7 +586,7 @@ done
 
 ---
 
-## 8.4. Настройка дашбордов и алертов
+## 9.4. Настройка дашбордов и алертов
 
 ### Создание custom метрик
 
@@ -657,7 +657,7 @@ severity: critical
 
 ---
 
-## 8.5. Анализ трейсов и метрик
+## 9.5. Анализ трейсов и метрик
 
 ### Просмотр трейсов
 
@@ -736,5 +736,5 @@ curl http://localhost:4318/v1/traces
 
 **Навигация:**
 - [← Вернуться к содержанию](index.md)
-- [← Глава 7: PostgreSQL: надежное хранение данных](chapter-07-postgresql.md)
-- [→ Глава 9: Zitadel IAM: централизованная аутентификация](chapter-09-zitadel.md)
+- [← Глава 8: PostgreSQL: надежное хранение данных](chapter-08-postgresql.md)
+- [→ Глава 10: Zitadel IAM: централизованная аутентификация](chapter-10-zitadel.md)

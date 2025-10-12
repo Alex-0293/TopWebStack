@@ -2,9 +2,9 @@
 
 ---
 
-# Глава 5. Node.js: современная разработка
+# Глава 6. Node.js: современная разработка
 
-## 5.1. Node.js 26 LTS: что нового
+## 6.1. Node.js 26 LTS: что нового
 
 **Node.js** — JavaScript runtime, построенный на движке V8 от Google Chrome, для выполнения JavaScript на сервере.
 
@@ -57,7 +57,7 @@
 
 ---
 
-## 5.2. Установка Node.js через NVM
+## 6.2. Установка Node.js через NVM
 
 **NVM (Node Version Manager)** — инструмент для управления несколькими версиями Node.js.
 
@@ -136,7 +136,7 @@ nvm use
 
 ---
 
-## 5.3. Создание простого API на Fastify
+## 6.3. Создание простого API на Fastify
 
 **Fastify** — быстрый и низкоуровневый web framework для Node.js.
 
@@ -382,7 +382,7 @@ curl http://localhost:3001/health
 
 ---
 
-## 5.4. Контейнеризация Node.js приложения
+## 6.4. Контейнеризация Node.js приложения
 
 ### Создание Dockerfile
 
@@ -466,7 +466,7 @@ podman rm fastify-api
 
 ---
 
-## 5.5. Multi-stage builds для оптимизации
+## 6.5. Multi-stage builds для оптимизации
 
 **Multi-stage builds** позволяют создавать оптимизированные образы, разделяя процесс сборки и runtime.
 
@@ -597,7 +597,7 @@ podman logs -f fastify-api-opt
 
 ---
 
-## 5.6. Интеграция с Podman Compose
+## 6.6. Интеграция с Podman Compose
 
 ### Создание docker-compose.yml
 
@@ -693,5 +693,5 @@ podman stats fastify-api-opt --no-stream
 
 **Навигация:**
 - [← Вернуться к содержанию](index.md)
-- [← Глава 4: Komodo: управление инфраструктурой и деплоем](chapter-04-comodo.md)
-- [→ Глава 6: Vite: современный фронтенд](chapter-06-vite.md)
+- [← Глава 5: Komodo: управление инфраструктурой и деплоем](chapter-05-comodo.md)
+- [→ Глава 7: Vite: современный фронтенд](chapter-07-vite.md)

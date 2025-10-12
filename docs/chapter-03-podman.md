@@ -647,4 +647,4 @@ podman ps | wc -l
 **Навигация:**
 - [← Вернуться к содержанию](index.md)
 - [← Глава 2: AlmaLinux и основы системы](chapter-02-almalinux.md)
-- [→ Глава 4: Komodo: управление инфраструктурой и деплоем](chapter-04-comodo.md)
+- [→ Глава 4: Git: система контроля версий](chapter-04-git.md)

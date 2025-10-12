@@ -2,9 +2,9 @@
 
 ---
 
-# Глава 9. Zitadel IAM: централизованная аутентификация
+# Глава 10. Zitadel IAM: централизованная аутентификация
 
-## 9.1. Zitadel: современный IAM
+## 10.1. Zitadel: современный IAM
 
 **Zitadel** — open-source Identity and Access Management (IAM) платформа.
 
@@ -45,7 +45,7 @@
 
 ---
 
-## 9.2. Развертывание Zitadel
+## 10.2. Развертывание Zitadel
 
 ### Подготовка
 
@@ -165,7 +165,7 @@ podman-compose -f docker-compose.zitadel.yaml logs -f zitadel
 
 ---
 
-## 9.3. Настройка организации и проектов
+## 10.3. Настройка организации и проектов
 
 ### Создание проекта через UI
 
@@ -214,7 +214,7 @@ curl -X POST http://localhost:8080/management/v1/projects \
 
 ---
 
-## 9.4. OIDC/OAuth2 интеграция
+## 10.4. OIDC/OAuth2 интеграция
 
 ### Установка зависимостей
 
@@ -444,7 +444,7 @@ fastify.get('/protected', { preHandler: requireAuth }, async (request, reply) =>
 
 ---
 
-## 9.5. Подключение к React через Lucia Auth
+## 10.5. Подключение к React через Lucia Auth
 
 ### Установка зависимостей
 
@@ -595,5 +595,5 @@ curl http://localhost:3001/auth/me
 
 **Навигация:**
 - [← Вернуться к содержанию](index.md)
-- [← Глава 8: SigNoz: мониторинг и observability](chapter-08-signoz.md)
-- [→ Глава 10: Интеграция всех компонентов](chapter-10-integration.md)
+- [← Глава 9: SigNoz: мониторинг и observability](chapter-09-signoz.md)
+- [→ Глава 11: Интеграция всех компонентов](chapter-11-integration.md)

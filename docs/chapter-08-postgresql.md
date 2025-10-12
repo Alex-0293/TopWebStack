@@ -2,9 +2,9 @@
 
 ---
 
-# Глава 7. PostgreSQL: надежное хранение данных
+# Глава 8. PostgreSQL: надежное хранение данных
 
-## 7.1. PostgreSQL 18: новые возможности
+## 8.1. PostgreSQL 18: новые возможности
 
 **PostgreSQL** — мощная open-source объектно-реляционная СУБД с 35+ летней историей.
 
@@ -52,7 +52,7 @@
 
 ---
 
-## 7.2. Развертывание PostgreSQL в контейнере
+## 8.2. Развертывание PostgreSQL в контейнере
 
 ### Простой запуск
 
@@ -258,7 +258,7 @@ podman exec -it postgres psql -U developer -d myapp
 
 ---
 
-## 7.3. Инициализация базы данных
+## 8.3. Инициализация базы данных
 
 ### Создание init скрипта
 
@@ -344,7 +344,7 @@ podman exec -it postgres psql -U developer -d myapp -c "\dt"
 
 ---
 
-## 7.4. Подключение из Node.js через Prisma
+## 8.4. Подключение из Node.js через Prisma
 
 **Prisma** — современный ORM для Node.js и TypeScript.
 
@@ -587,7 +587,7 @@ start();
 
 ---
 
-## 7.5. Backup и восстановление
+## 8.5. Backup и восстановление
 
 ### Создание backup
 
@@ -689,5 +689,5 @@ npx prisma studio
 
 **Навигация:**
 - [← Вернуться к содержанию](index.md)
-- [← Глава 6: Vite: современный фронтенд](chapter-06-vite.md)
-- [→ Глава 8: SigNoz: мониторинг и observability](chapter-08-signoz.md)
+- [← Глава 7: Vite: современный фронтенд](chapter-07-vite.md)
+- [→ Глава 9: SigNoz: мониторинг и observability](chapter-09-signoz.md)

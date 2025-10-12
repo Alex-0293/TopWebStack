@@ -2,9 +2,9 @@
 
 ---
 
-# Глава 6. Vite: современный фронтенд
+# Глава 7. Vite: современный фронтенд
 
-## 6.1. Vite: зачем нужен и как работает
+## 7.1. Vite: зачем нужен и как работает
 
 **Vite** — современный build tool для фронтенд разработки, созданный автором Vue.js.
 
@@ -52,7 +52,7 @@
 
 ---
 
-## 6.2. Создание React-приложения с Vite
+## 7.2. Создание React-приложения с Vite
 
 ### Создание проекта
 
@@ -231,7 +231,7 @@ npm run preview
 
 ---
 
-## 6.3. Контейнеризация фронтенда
+## 7.3. Контейнеризация фронтенда
 
 ### Dockerfile для development
 
@@ -283,7 +283,7 @@ podman logs -f react-dev
 
 ---
 
-## 6.4. Nginx для production
+## 7.4. Nginx для production
 
 ### Multi-stage Dockerfile для production
 
@@ -495,7 +495,7 @@ curl http://localhost:8080/health
 
 ---
 
-## 6.5. Docker Compose для fullstack приложения
+## 7.5. Docker Compose для fullstack приложения
 
 ### Создание docker-compose.yml
 
@@ -583,7 +583,7 @@ podman-compose down
 
 ---
 
-## 6.6. Оптимизация production build
+## 7.6. Оптимизация production build
 
 ### Настройка vite.config.ts для production
 
@@ -682,5 +682,5 @@ podman stats react-prod --no-stream
 
 **Навигация:**
 - [← Вернуться к содержанию](index.md)
-- [← Глава 5: Node.js: современная разработка](chapter-05-nodejs.md)
-- [→ Глава 7: PostgreSQL: надежное хранение данных](chapter-07-postgresql.md)
+- [← Глава 6: Node.js: современная разработка](chapter-06-nodejs.md)
+- [→ Глава 8: PostgreSQL: надежное хранение данных](chapter-08-postgresql.md)
