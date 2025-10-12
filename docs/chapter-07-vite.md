@@ -679,8 +679,3 @@ podman stats react-prod --no-stream
 ```
 
 ---
-
-**Навигация:**
-- [← Вернуться к содержанию](index.md)
-- [← Глава 6: Node.js: современная разработка](chapter-06-nodejs.md)
-- [→ Глава 8: PostgreSQL: надежное хранение данных](chapter-08-postgresql.md)

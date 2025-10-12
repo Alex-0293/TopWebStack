@@ -613,8 +613,3 @@ podman exec eventbrain-api ping -c 1 postgres
 ```
 
 ---
-
-**Навигация:**
-- [← Вернуться к содержанию](index.md)
-- [← Глава 10: Zitadel IAM: централизованная аутентификация](chapter-10-zitadel.md)
-- [→ Глава 12: Production-ready практики](chapter-12-production.md)

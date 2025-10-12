@@ -863,7 +863,3 @@ podman-compose logs
 ```
 
 ---
-
-**Навигация:**
-- [← Вернуться к содержанию](index.md)
-- [→ Глава 2: AlmaLinux и основы системы](chapter-02-almalinux.md)

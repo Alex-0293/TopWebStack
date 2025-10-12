@@ -686,8 +686,3 @@ npx prisma studio
 ```
 
 ---
-
-**Навигация:**
-- [← Вернуться к содержанию](index.md)
-- [← Глава 7: Vite: современный фронтенд](chapter-07-vite.md)
-- [→ Глава 9: SigNoz: мониторинг и observability](chapter-09-signoz.md)

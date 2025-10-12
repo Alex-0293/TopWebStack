@@ -690,8 +690,3 @@ podman stats fastify-api-opt --no-stream
 ```
 
 ---
-
-**Навигация:**
-- [← Вернуться к содержанию](index.md)
-- [← Глава 5: Komodo: управление инфраструктурой и деплоем](chapter-05-comodo.md)
-- [→ Глава 7: Vite: современный фронтенд](chapter-07-vite.md)

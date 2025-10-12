@@ -592,8 +592,3 @@ curl http://localhost:3001/auth/me
 ```
 
 ---
-
-**Навигация:**
-- [← Вернуться к содержанию](index.md)
-- [← Глава 9: SigNoz: мониторинг и observability](chapter-09-signoz.md)
-- [→ Глава 11: Интеграция всех компонентов](chapter-11-integration.md)

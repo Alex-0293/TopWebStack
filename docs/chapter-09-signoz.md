@@ -733,8 +733,3 @@ curl http://localhost:4318/v1/traces
 ```
 
 ---
-
-**Навигация:**
-- [← Вернуться к содержанию](index.md)
-- [← Глава 8: PostgreSQL: надежное хранение данных](chapter-08-postgresql.md)
-- [→ Глава 10: Zitadel IAM: централизованная аутентификация](chapter-10-zitadel.md)
