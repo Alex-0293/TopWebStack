@@ -102,7 +102,7 @@
         position: fixed;
         top: 20px;
         right: 20px;
-        z-index: 1000;
+        z-index: 9999;
         background: var(--theme-color, #42b983);
         border: none;
         border-radius: 50%;
@@ -116,11 +116,40 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        touch-action: manipulation;
       }
       
       .theme-switcher:hover {
         transform: scale(1.1);
         box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      }
+      
+      .theme-switcher:active {
+        transform: scale(0.95);
+        transition: all 0.1s ease;
+      }
+      
+      /* Mobile specific styles */
+      @media (hover: none) and (pointer: coarse) {
+        .theme-switcher {
+          width: 48px;
+          height: 48px;
+        }
+        
+        .theme-switcher:hover {
+          transform: none;
+        }
+        
+        .theme-switcher:active {
+          transform: scale(0.9);
+          box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+        }
       }
       
       /* Dark theme adjustments */
@@ -298,11 +327,22 @@
         // Set initial theme
         setTheme(savedTheme);
         
-        // Theme switcher click handler
-        themeSwitcher.addEventListener('click', function() {
+        // Theme switcher event handlers for both desktop and mobile
+        function handleThemeSwitch(event) {
+          event.preventDefault();
+          event.stopPropagation();
           const currentTheme = document.body.getAttribute('data-theme');
           const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
           setTheme(newTheme);
+        }
+        
+        // Add multiple event listeners for better mobile compatibility
+        themeSwitcher.addEventListener('click', handleThemeSwitch);
+        themeSwitcher.addEventListener('touchend', handleThemeSwitch);
+        
+        // Prevent default touch behavior to avoid conflicts
+        themeSwitcher.addEventListener('touchstart', function(event) {
+          event.preventDefault();
         });
         
         // Auto-detect system preference (optional)
