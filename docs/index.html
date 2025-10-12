@@ -15,11 +15,16 @@
 
     <!-- 1. Theme -->
     <link
+      id="docsify-theme-light"
       rel="stylesheet"
       href="https://unpkg.com/docsify-themeable/dist/css/theme-simple.css"
     />
-    <!-- <link rel="stylesheet" href="https://unpkg.com/docsify-themeable/dist/css/theme-simple-dark.css"> -->
-    <!-- <link rel="stylesheet" href="https://unpkg.com/docsify-themeable/dist/css/theme-defaults.css"> -->
+    <link
+      id="docsify-theme-dark"
+      rel="stylesheet"
+      href="https://unpkg.com/docsify-themeable/dist/css/theme-simple-dark.css"
+      disabled
+    />
 
     <!-- 2. PrismJS Themes -->
     <!-- <link rel="stylesheet" href="https://unpkg.com/prism-github/prism-github.css"> -->
@@ -63,10 +68,58 @@
         content: "✏️ ";
         margin-right: 4px;
       }
+      
+      /* Theme switcher */
+      .theme-switcher {
+        position: fixed;
+        top: 70px;
+        right: 10px;
+        z-index: 1000;
+        background: var(--theme-color, #42b983);
+        border: none;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+        font-size: 20px;
+        color: white;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      .theme-switcher:hover {
+        transform: scale(1.1);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      }
+      
+      /* Dark theme adjustments */
+      [data-theme="dark"] .theme-switcher {
+        background: #ffd700;
+        color: #333;
+      }
+      
+      [data-theme="dark"] .markdown-section p:first-child a[href*="github.com"] {
+        background: #21262d;
+        border-color: #30363d;
+        color: #c9d1d9;
+      }
+      
+      [data-theme="dark"] .markdown-section p:first-child a[href*="github.com"]:hover {
+        background: #30363d;
+        border-color: #21262d;
+      }
     </style>
   </head>
 
   <body>
+    <!-- Theme Switcher -->
+    <button id="theme-switcher" class="theme-switcher" title="Переключить тему">
+      🌙
+    </button>
+    
     <div id="app"></div>
 
     <script>
@@ -111,5 +164,51 @@
     <script src="https://unpkg.com/docsify/lib/plugins/zoom-image.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/docsify-mermaid/dist/docsify-mermaid.min.js"></script>
+    
+    <!-- Theme Switcher Script -->
+    <script>
+      (function() {
+        // Theme switching functionality
+        const themeSwitcher = document.getElementById('theme-switcher');
+        const lightTheme = document.getElementById('docsify-theme-light');
+        const darkTheme = document.getElementById('docsify-theme-dark');
+        
+        // Load saved theme or default to light
+        const savedTheme = localStorage.getItem('docsify-theme') || 'light';
+        
+        function setTheme(theme) {
+          if (theme === 'dark') {
+            lightTheme.disabled = true;
+            darkTheme.disabled = false;
+            document.body.setAttribute('data-theme', 'dark');
+            themeSwitcher.innerHTML = '☀️';
+            themeSwitcher.title = 'Переключить на светлую тему';
+          } else {
+            lightTheme.disabled = false;
+            darkTheme.disabled = true;
+            document.body.setAttribute('data-theme', 'light');
+            themeSwitcher.innerHTML = '🌙';
+            themeSwitcher.title = 'Переключить на тёмную тему';
+          }
+          localStorage.setItem('docsify-theme', theme);
+        }
+        
+        // Set initial theme
+        setTheme(savedTheme);
+        
+        // Theme switcher click handler
+        themeSwitcher.addEventListener('click', function() {
+          const currentTheme = document.body.getAttribute('data-theme');
+          const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+          setTheme(newTheme);
+        });
+        
+        // Auto-detect system preference (optional)
+        if (savedTheme === 'auto' || !savedTheme) {
+          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          setTheme(prefersDark ? 'dark' : 'light');
+        }
+      })();
+    </script>
   </body>
 </html>
