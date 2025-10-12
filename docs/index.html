@@ -219,6 +219,134 @@
         color: #ccc;
         background: rgba(0, 0, 0, 0.2);
       }
+
+      /* Feedback Widget Styles */
+      .feedback-widget {
+        margin: 3rem 0 2rem 0;
+        padding: 1.5rem;
+        border-radius: 12px;
+        border: 1px solid #e1e8ed;
+        background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .feedback-widget::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #007bff, #28a745, #17a2b8);
+      }
+
+      [data-theme="dark"] .feedback-widget {
+        background: linear-gradient(135deg, #1a1d23 0%, #2d3748 100%);
+        border-color: #4a5568;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+      }
+
+      .feedback-widget h4 {
+        margin: 0 0 0.75rem 0;
+        color: #2d3748;
+        font-size: 1.1rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      [data-theme="dark"] .feedback-widget h4 {
+        color: #e2e8f0;
+      }
+
+      .feedback-widget p {
+        margin: 0 0 1rem 0;
+        color: #4a5568;
+        font-size: 0.9rem;
+        line-height: 1.5;
+      }
+
+      [data-theme="dark"] .feedback-widget p {
+        color: #a0aec0;
+      }
+
+      .feedback-buttons {
+        display: flex;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+      }
+
+      .feedback-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.6rem 1rem;
+        border: none;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 0.85rem;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        cursor: pointer;
+        min-width: 120px;
+        justify-content: center;
+      }
+
+      .feedback-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        text-decoration: none;
+      }
+
+      .feedback-btn.positive {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+      }
+
+      .feedback-btn.negative {
+        background: linear-gradient(135deg, #dc3545, #e74c3c);
+        color: white;
+      }
+
+      .feedback-btn.suggestion {
+        background: linear-gradient(135deg, #17a2b8, #20c997);
+        color: white;
+      }
+
+      .feedback-btn.github {
+        background: linear-gradient(135deg, #6c757d, #495057);
+        color: white;
+      }
+
+      [data-theme="dark"] .feedback-btn.positive {
+        background: linear-gradient(135deg, #38a169, #2f855a);
+      }
+
+      [data-theme="dark"] .feedback-btn.negative {
+        background: linear-gradient(135deg, #e53e3e, #c53030);
+      }
+
+      [data-theme="dark"] .feedback-btn.suggestion {
+        background: linear-gradient(135deg, #319795, #2c7a7b);
+      }
+
+      [data-theme="dark"] .feedback-btn.github {
+        background: linear-gradient(135deg, #4a5568, #2d3748);
+      }
+
+      @media (max-width: 768px) {
+        .feedback-buttons {
+          flex-direction: column;
+        }
+        
+        .feedback-btn {
+          width: 100%;
+        }
+      }
     </style>
   </head>
 
@@ -241,13 +369,51 @@
         maxLevel: 3,
         subMaxLevel: 3,
 
-        // Edit on GitHub
+        // Edit on GitHub & Feedback Widget
         plugins: [
           function(hook, vm) {
             hook.beforeEach(function(html) {
               var url = 'https://github.com/Alex-0293/TopWebStack/blob/main/docs/' + vm.route.file;
               var editHtml = '[:memo: Редактировать на GitHub](' + url + ')\n';
               return editHtml + '\n---\n\n' + html;
+            });
+          },
+          // Feedback widget at the end of each page
+          function(hook, vm) {
+            hook.afterEach(function(html) {
+              // Skip feedback widget on cover page and main index
+              if (vm.route.file === 'coverpage.md' || vm.route.file === 'index.md' || vm.route.file === 'README.md') {
+                return html;
+              }
+
+              var currentPage = vm.route.file || 'unknown';
+              var pageTitle = currentPage.replace('.md', '').replace('chapter-', 'Глава ');
+              
+              var feedbackWidget = `
+                <div class="feedback-widget">
+                  <h4>📝 Была ли полезна эта страница?</h4>
+                  <p>Ваш отзыв поможет нам улучшить курс TopWebStack. Поделитесь своим мнением!</p>
+                  <div class="feedback-buttons">
+                    <a href="https://github.com/Alex-0293/TopWebStack/issues/new?assignees=&labels=feedback%2C+positive&template=&title=${encodeURIComponent('👍 Полезная страница: ' + pageTitle)}&body=${encodeURIComponent('**Страница:** ' + currentPage + '\n\n**Что понравилось:**\n\n**Предложения по улучшению:**\n\n')}" 
+                       class="feedback-btn positive" target="_blank" rel="noopener">
+                       👍 Полезно
+                    </a>
+                    <a href="https://github.com/Alex-0293/TopWebStack/issues/new?assignees=&labels=bug%2C+needs-review&template=&title=${encodeURIComponent('🐛 Ошибка на странице: ' + pageTitle)}&body=${encodeURIComponent('**Страница:** ' + currentPage + '\n\n**Описание ошибки:**\n\n**Ожидаемое поведение:**\n\n**Дополнительная информация:**\n\n')}" 
+                       class="feedback-btn negative" target="_blank" rel="noopener">
+                       🐛 Есть ошибка
+                    </a>
+                    <a href="https://github.com/Alex-0293/TopWebStack/issues/new?assignees=&labels=enhancement%2C+suggestion&template=&title=${encodeURIComponent('💡 Предложение для: ' + pageTitle)}&body=${encodeURIComponent('**Страница:** ' + currentPage + '\n\n**Предложение:**\n\n**Обоснование:**\n\n**Дополнительные детали:**\n\n')}" 
+                       class="feedback-btn suggestion" target="_blank" rel="noopener">
+                       💡 Предложение
+                    </a>
+                    <a href="https://github.com/Alex-0293/TopWebStack/discussions" 
+                       class="feedback-btn github" target="_blank" rel="noopener">
+                       💬 Обсуждения
+                    </a>
+                  </div>
+                </div>`;
+              
+              return html + feedbackWidget;
             });
           }
         ],
