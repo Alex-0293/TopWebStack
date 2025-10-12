@@ -18,23 +18,39 @@
 **Почему Git важен в контексте нашего стека:**
 
 ```mermaid
-graph TB
-    subgraph workflow["🔄 Development Workflow"]
-        dev["👨‍💻 Developer"]
-        git["📦 Git Repository"]
-        komodo["🎛️ Komodo"]
-        server["🖥️ AlmaLinux Server"]
-        containers["🐳 Podman Containers"]
-        
-        dev --> |"git push"| git
-        git --> |"webhook"| komodo
-        komodo --> |"deployment"| server
-        server --> containers
+flowchart LR
+    subgraph dev_env["� Среда разработки"]
+        developer["👨‍💻<br/>Разработчик"]
+        vscode["�<br/>VS Code"]
+        local_git["📁<br/>Локальный Git"]
     end
     
-    style workflow fill:#f9f9f9,stroke:#333,stroke-width:2px
-    style git fill:#F05032,stroke:#D73027,stroke-width:3px,color:#fff
-    style komodo fill:#4CAF50,stroke:#388E3C,stroke-width:2px,color:#fff
+    subgraph cloud["☁️ Облачные сервисы"]
+        github["�<br/>GitHub<br/>Repository"]
+        actions["⚡<br/>GitHub<br/>Actions"]
+    end
+    
+    subgraph server_env["🖥️ Серверная среда"]
+        komodo["🎛️<br/>Komodo<br/>Dashboard"]
+        almalinux["�<br/>AlmaLinux<br/>Server"]
+        podman["🐳<br/>Podman<br/>Containers"]
+    end
+    
+    developer --> vscode
+    vscode --> local_git
+    local_git --> |"git push"| github
+    github --> |"webhook"| komodo
+    github --> |"CI/CD"| actions
+    actions --> |"deploy"| komodo
+    komodo --> |"container mgmt"| almalinux
+    almalinux --> podman
+    
+    style dev_env fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    style cloud fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    style server_env fill:#e8f5e8,stroke:#388e3c,stroke-width:2px
+    style github fill:#24292e,color:#fff
+    style komodo fill:#4caf50,color:#fff
+    style podman fill:#892ca0,color:#fff
 ```
 
 ## 4.2. Установка и первичная настройка Git
@@ -104,21 +120,33 @@ git commit -m "Initial commit"
 **Жизненный цикл файлов в Git:**
 
 ```mermaid
-graph LR
-    untracked["📄 Untracked"]
-    modified["✏️ Modified"]
-    staged["📋 Staged"]
-    committed["✅ Committed"]
+flowchart TB
+    subgraph workspace["📁 Рабочая область"]
+        untracked["📄 Новые файлы<br/>(Untracked)"]
+        modified["✏️ Измененные файлы<br/>(Modified)"]
+    end
+    
+    subgraph staging["📋 Область подготовки"]
+        staged["🎯 Подготовленные<br/>(Staged)"]
+    end
+    
+    subgraph repository["💾 Репозиторий"]
+        committed["✅ Зафиксированные<br/>(Committed)"]
+    end
     
     untracked --> |"git add"| staged
     modified --> |"git add"| staged
-    staged --> |"git commit"| committed
-    committed --> |"edit file"| modified
+    staged --> |"git commit -m 'message'"| committed
+    committed --> |"редактирование"| modified
     
-    style untracked fill:#ffcccc
-    style modified fill:#ffffcc
-    style staged fill:#ccffcc
-    style committed fill:#ccccff
+    style workspace fill:#fff3e0,stroke:#ff9800,stroke-width:2px
+    style staging fill:#e8f5e8,stroke:#4caf50,stroke-width:2px
+    style repository fill:#e3f2fd,stroke:#2196f3,stroke-width:2px
+    
+    style untracked fill:#ffcdd2,stroke:#f44336
+    style modified fill:#fff9c4,stroke:#ffc107
+    style staged fill:#c8e6c9,stroke:#4caf50
+    style committed fill:#bbdefb,stroke:#2196f3
 ```
 
 **Основные команды:**
@@ -420,37 +448,101 @@ git remote -v
 
 ```mermaid
 gitgraph
-    commit id: "Initial commit"
+    commit id: "🎯 Initial"
     branch develop
     checkout develop
-    commit id: "Setup project"
+    commit id: "⚙️ Setup"
+    
     branch feature/auth
     checkout feature/auth
-    commit id: "Add authentication"
-    commit id: "Add tests"
+    commit id: "🔐 Auth"
+    commit id: "🧪 Tests"
+    
     checkout develop
     merge feature/auth
+    commit id: "🔗 Merge auth"
+    
     branch feature/api
     checkout feature/api
-    commit id: "Add REST API"
+    commit id: "🚀 API"
+    commit id: "📝 Docs"
+    
     checkout develop
     merge feature/api
+    commit id: "🔗 Merge API"
+    
     checkout main
     merge develop
-    commit id: "Release v1.0"
+    commit id: "🎉 v1.0"
+    
+    checkout develop
+    branch hotfix/security
+    checkout hotfix/security
+    commit id: "🛡️ Security"
+    
+    checkout main
+    merge hotfix/security
+    commit id: "🔧 v1.0.1"
+    
+    checkout develop
+    merge hotfix/security
 ```
 
 ### Структура веток
 
+```mermaid
+flowchart TD
+    subgraph permanent["🏛️ Постоянные ветки"]
+        main["🎯 main<br/>(production-ready)"]
+        develop["🔧 develop<br/>(интеграция)"]
+    end
+    
+    subgraph temporary["⏱️ Временные ветки"]
+        feature["🚀 feature/*<br/>(новые функции)"]
+        release["📦 release/*<br/>(подготовка к релизу)"]
+        hotfix["🛡️ hotfix/*<br/>(критические исправления)"]
+    end
+    
+    subgraph examples["📝 Примеры"]
+        feat_auth["feature/user-auth"]
+        feat_api["feature/rest-api"]
+        rel_v1["release/v1.0"]
+        hot_sec["hotfix/security-patch"]
+    end
+    
+    develop --> feature
+    feature --> develop
+    develop --> release
+    release --> main
+    release --> develop
+    main --> hotfix
+    hotfix --> main
+    hotfix --> develop
+    
+    feature --> feat_auth
+    feature --> feat_api
+    release --> rel_v1
+    hotfix --> hot_sec
+    
+    style permanent fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    style temporary fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    style examples fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    
+    style main fill:#4caf50,color:#fff
+    style develop fill:#2196f3,color:#fff
+```
+
+**Правила работы с ветками:**
+
 ```bash
 # Основные ветки
-main           # production-ready код
-develop        # интеграционная ветка
+main           # production-ready код, только стабильные релизы
+develop        # интеграционная ветка, активная разработка
 
-# Временные ветки
-feature/*      # новые функции
-hotfix/*       # критические исправления
-release/*      # подготовка к релизу
+# Временные ветки (создаются и удаляются)
+feature/*      # новые функции: feature/user-authentication
+hotfix/*       # критические исправления: hotfix/security-vulnerability
+release/*      # подготовка к релизу: release/v1.2.0
 ```
 
 ### Соглашения о коммитах
@@ -767,7 +859,303 @@ git clean -n                     # просмотр без удаления
 git gc --aggressive --prune=now
 ```
 
-## 4.10. Заключение главы
+## 4.10. Практическое задание
+
+### 🎯 Цель задания
+
+Создать полноценный Git workflow для проекта TopWebStack с применением изученных практик: настройка репозитория, работа с ветками, Fine-grained токены и Git hooks.
+
+### 📋 Задание 1: Настройка Git-окружения
+
+**1.1. Базовая конфигурация Git**
+
+```bash
+# Настройте Git с вашими данными
+git config --global user.name "Ваше Имя"
+git config --global user.email "your.email@example.com"
+
+# Настройте дополнительные параметры
+git config --global init.defaultBranch main
+git config --global pull.rebase false
+git config --global core.autocrlf input  # для Linux/macOS
+```
+
+**1.2. Создайте Fine-grained Personal Access Token**
+
+1. Перейдите в GitHub Settings → Developer settings → Personal access tokens → Fine-grained tokens
+2. Создайте токен со следующими параметрами:
+   - Name: `TopWebStack-Practice`
+   - Expiration: 30 days
+   - Repository access: Selected repositories (выберите учебный репозиторий)
+   - Permissions: Contents (Read/Write), Metadata (Read), Pull requests (Read/Write)
+
+**1.3. Настройте credential helper**
+
+```bash
+# Настройка для безопасного хранения токена
+git config --global credential.helper store
+# При первом push введите username и токен как password
+```
+
+### 📋 Задание 2: Работа с Git Flow
+
+**2.1. Инициализация проекта**
+
+```bash
+# Создайте новый проект
+mkdir topwebstack-practice
+cd topwebstack-practice
+git init
+
+# Создайте начальную структуру
+mkdir -p {src,docs,tests,config}
+echo "# TopWebStack Practice Project" > README.md
+echo "node_modules/\n.env\n*.log" > .gitignore
+```
+
+**2.2. Реализуйте Git Flow**
+
+```bash
+# 1. Первый коммит в main
+git add .
+git commit -m "feat: initial project structure"
+
+# 2. Создайте ветку develop
+git checkout -b develop
+
+# 3. Добавьте базовые файлы
+echo "console.log('Hello, TopWebStack!');" > src/app.js
+echo "# Development Notes" > docs/dev-notes.md
+git add .
+git commit -m "feat: add basic application files"
+
+# 4. Создайте feature-ветку для аутентификации
+git checkout -b feature/user-auth
+
+# 5. Реализуйте "аутентификацию"
+mkdir src/auth
+echo "// User authentication module" > src/auth/auth.js
+echo "// Auth tests" > tests/auth.test.js
+git add .
+git commit -m "feat(auth): add user authentication module"
+git commit --allow-empty -m "feat(auth): add authentication tests"
+
+# 6. Вернитесь в develop и сделайте merge
+git checkout develop
+git merge feature/auth --no-ff -m "feat: merge user authentication feature"
+
+# 7. Создайте ветку для API
+git checkout -b feature/rest-api
+echo "// REST API endpoints" > src/api.js
+echo "// API tests" > tests/api.test.js
+git add .
+git commit -m "feat(api): implement REST API endpoints"
+
+# 8. Merge API в develop
+git checkout develop
+git merge feature/rest-api --no-ff -m "feat: merge REST API feature"
+
+# 9. Подготовьте релиз
+git checkout -b release/v1.0
+echo '{"version": "1.0.0", "name": "topwebstack-practice"}' > package.json
+git add package.json
+git commit -m "chore(release): prepare v1.0.0 release"
+
+# 10. Merge в main
+git checkout main
+git merge release/v1.0 --no-ff -m "release: TopWebStack Practice v1.0.0"
+git tag -a v1.0.0 -m "Release version 1.0.0"
+
+# 11. Merge обратно в develop
+git checkout develop
+git merge release/v1.0
+```
+
+**2.3. Создайте hotfix**
+
+```bash
+# Имитируем критическую ошибку в production
+git checkout main
+git checkout -b hotfix/security-patch
+
+# Исправляем "уязвимость"
+echo "// Security patch applied" >> src/auth/auth.js
+git add .
+git commit -m "fix(security): patch authentication vulnerability"
+
+# Merge в main
+git checkout main
+git merge hotfix/security-patch --no-ff
+git tag -a v1.0.1 -m "Hotfix version 1.0.1"
+
+# Merge в develop
+git checkout develop
+git merge hotfix/security-patch
+```
+
+### 📋 Задание 3: Git Hooks
+
+**3.1. Создайте pre-commit hook**
+
+```bash
+# Создайте hook файл
+cat > .git/hooks/pre-commit << 'EOF'
+#!/bin/sh
+echo "🔍 Running pre-commit checks..."
+
+# Проверяем наличие console.log в JS файлах
+if git diff --cached --name-only | grep -E "\.(js|ts)$" | xargs grep -l "console\.log" 2>/dev/null; then
+    echo "❌ Found console.log statements. Please remove them before committing."
+    echo "Files with console.log:"
+    git diff --cached --name-only | grep -E "\.(js|ts)$" | xargs grep -l "console\.log" 2>/dev/null
+    exit 1
+fi
+
+# Проверяем размер файлов (не более 1MB)
+large_files=$(git diff --cached --name-only | xargs ls -la 2>/dev/null | awk '$5 > 1048576 {print $9}')
+if [ ! -z "$large_files" ]; then
+    echo "❌ Large files detected (>1MB):"
+    echo "$large_files"
+    echo "Please use Git LFS for large files."
+    exit 1
+fi
+
+echo "✅ Pre-commit checks passed!"
+EOF
+
+chmod +x .git/hooks/pre-commit
+```
+
+**3.2. Создайте commit-msg hook**
+
+```bash
+cat > .git/hooks/commit-msg << 'EOF'
+#!/bin/sh
+commit_regex='^(feat|fix|docs|style|refactor|test|chore)(\(.+\))?: .{1,50}'
+
+if ! grep -qE "$commit_regex" "$1"; then
+    echo "❌ Invalid commit message format!"
+    echo "Format: type(scope): description"
+    echo "Types: feat, fix, docs, style, refactor, test, chore"
+    echo "Example: feat(auth): add user login functionality"
+    exit 1
+fi
+
+echo "✅ Commit message format is valid"
+EOF
+
+chmod +x .git/hooks/commit-msg
+```
+
+**3.3. Протестируйте hooks**
+
+```bash
+# Попробуйте закоммитить неправильное сообщение
+echo "test" > test.txt
+git add test.txt
+git commit -m "bad message"  # Должно заблокировать
+
+# Правильный коммит
+git commit -m "test: add test file for hooks validation"
+```
+
+### 📋 Задание 4: Удаленный репозиторий
+
+**4.1. Подключите к GitHub**
+
+```bash
+# Создайте репозиторий на GitHub (через веб-интерфейс)
+# Добавьте remote
+git remote add origin https://github.com/ваш-username/topwebstack-practice.git
+
+# Отправьте все ветки
+git push -u origin main
+git push origin develop
+git push origin --tags
+```
+
+**4.2. Настройте branch protection**
+
+В GitHub Settings → Branches настройте для ветки `main`:
+- ✅ Require pull request reviews before merging
+- ✅ Require status checks to pass before merging
+- ✅ Require branches to be up to date before merging
+
+### 🧪 Проверка знаний
+
+**Ответьте на вопросы (проверьте себя):**
+
+1. **Концептуальные вопросы:**
+   - Чем отличается `git fetch` от `git pull`?
+   - Когда использовать `git merge` vs `git rebase`?
+   - Что происходит при выполнении `git reset --hard HEAD~1`?
+
+2. **Практические задачи:**
+   ```bash
+   # Как отменить последние 3 коммита, сохранив изменения?
+   git reset --soft HEAD~3
+   
+   # Как посмотреть изменения между двумя ветками?
+   git diff branch1..branch2
+   
+   # Как найти коммит, который внес конкретное изменение?
+   git log -S "искомый_текст" --source --all
+   ```
+
+3. **Сценарии troubleshooting:**
+   - Вы случайно закоммитили в `main` вместо feature-ветки. Как исправить?
+   - Нужно применить коммит из одной ветки в другую. Какую команду использовать?
+   - Как разрешить merge-конфликт в файле?
+
+### ✅ Критерии оценки
+
+**Отлично (5):**
+- ✅ Корректно настроен Git и Fine-grained токен
+- ✅ Реализован полный Git Flow с правильными merge
+- ✅ Созданы и протестированы Git hooks  
+- ✅ Настроен удаленный репозиторий с branch protection
+- ✅ Даны правильные ответы на все вопросы проверки
+
+**Хорошо (4):**
+- ✅ Выполнены задания 1-3
+- ✅ Частично настроен удаленный репозиторий
+- ✅ Правильные ответы на 70%+ вопросов
+
+**Удовлетворительно (3):**
+- ✅ Выполнены задания 1-2  
+- ✅ Базовое понимание Git workflow
+- ✅ Правильные ответы на 50%+ вопросов
+
+### 💡 Подсказки для выполнения
+
+**Если возникли проблемы:**
+
+1. **Ошибка аутентификации GitHub:**
+   ```bash
+   # Проверьте токен
+   git config --global --list | grep credential
+   # Сбросьте saved credentials
+   git config --global --unset credential.helper
+   ```
+
+2. **Конфликт при merge:**
+   ```bash
+   # Посмотрите файлы с конфликтами
+   git status
+   # Откройте файл, найдите маркеры <<<< ==== >>>>
+   # Удалите маркеры, оставьте нужный код
+   git add .
+   git commit
+   ```
+
+3. **Проблемы с hooks:**
+   ```bash
+   # Проверьте права доступа
+   ls -la .git/hooks/
+   chmod +x .git/hooks/pre-commit
+   ```
+
+## 4.11. Заключение главы
 
 В этой главе мы изучили:
 
@@ -777,9 +1165,15 @@ git gc --aggressive --prune=now
 
 ✅ **Git workflow** — организация процесса разработки с ветками и коммитами
 
+✅ **Fine-grained токены** — современная безопасная аутентификация в GitHub
+
+✅ **Git hooks** — автоматизация проверок качества кода
+
 ✅ **Интеграцию с Komodo** — автоматический деплой через Git hooks
 
 ✅ **Best practices** — соглашения о коммитах и структуре проекта
+
+✅ **Практические навыки** — выполнение реального Git workflow
 
 **Что дальше:**
 
