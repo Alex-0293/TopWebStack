@@ -55,8 +55,8 @@
     />
 
     <!-- 2. PrismJS Themes -->
-    <!-- <link rel="stylesheet" href="https://unpkg.com/prism-github/prism-github.css"> -->
-    <!-- <link rel="stylesheet" href="https://unpkg.com/prism-theme-one-dark/prism-onedark.css"> -->
+    <link id="prism-theme-light" rel="stylesheet" href="https://unpkg.com/prism-github/prism-github.css">
+    <link id="prism-theme-dark" rel="stylesheet" href="https://unpkg.com/prism-theme-one-dark/prism-onedark.css" disabled>
 
     <!-- 3. Custom Theme Properties -->
     <style>
@@ -139,6 +139,49 @@
         background: #30363d;
         border-color: #21262d;
       }
+      
+      /* Enhanced code block styling */
+      .markdown-section pre {
+        position: relative;
+        border-radius: 8px;
+        margin: 1.5rem 0;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      }
+      
+      .markdown-section pre code {
+        border-radius: 8px;
+        font-family: 'Fira Code', 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+        font-size: 0.85rem;
+        line-height: 1.6;
+        tab-size: 2;
+      }
+      
+      /* Inline code styling */
+      .markdown-section code {
+        background: rgba(175, 184, 193, 0.2);
+        padding: 0.2em 0.4em;
+        border-radius: 3px;
+        font-family: 'Fira Code', 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+        font-size: 0.9em;
+      }
+      
+      [data-theme="dark"] .markdown-section code {
+        background: rgba(110, 118, 129, 0.4);
+      }
+      
+      /* Language label for code blocks */
+      .markdown-section pre[data-lang]:before {
+        content: attr(data-lang);
+        position: absolute;
+        top: 0.5rem;
+        right: 1rem;
+        color: #999;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        font-weight: bold;
+        letter-spacing: 0.5px;
+      }
     </style>
   </head>
 
@@ -192,6 +235,18 @@
     <script src="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/docsify-mermaid/dist/docsify-mermaid.min.js"></script>
     
+    <!-- PrismJS Language Support -->
+    <script src="https://unpkg.com/prismjs/components/prism-bash.min.js"></script>
+    <script src="https://unpkg.com/prismjs/components/prism-javascript.min.js"></script>
+    <script src="https://unpkg.com/prismjs/components/prism-typescript.min.js"></script>
+    <script src="https://unpkg.com/prismjs/components/prism-json.min.js"></script>
+    <script src="https://unpkg.com/prismjs/components/prism-yaml.min.js"></script>
+    <script src="https://unpkg.com/prismjs/components/prism-docker.min.js"></script>
+    <script src="https://unpkg.com/prismjs/components/prism-sql.min.js"></script>
+    <script src="https://unpkg.com/prismjs/components/prism-nginx.min.js"></script>
+    <script src="https://unpkg.com/prismjs/components/prism-markdown.min.js"></script>
+    <script src="https://unpkg.com/prismjs/components/prism-shell-session.min.js"></script>
+    
     <!-- Theme Switcher Script -->
     <script>
       (function() {
@@ -199,20 +254,32 @@
         const themeSwitcher = document.getElementById('theme-switcher');
         const lightTheme = document.getElementById('docsify-theme-light');
         const darkTheme = document.getElementById('docsify-theme-dark');
+        const prismLightTheme = document.getElementById('prism-theme-light');
+        const prismDarkTheme = document.getElementById('prism-theme-dark');
         
         // Load saved theme or default to light
         const savedTheme = localStorage.getItem('docsify-theme') || 'light';
         
         function setTheme(theme) {
           if (theme === 'dark') {
+            // Docsify themes
             lightTheme.disabled = true;
             darkTheme.disabled = false;
+            // Prism themes
+            prismLightTheme.disabled = true;
+            prismDarkTheme.disabled = false;
+            // UI updates
             document.body.setAttribute('data-theme', 'dark');
             themeSwitcher.innerHTML = '☀️';
             themeSwitcher.title = 'Переключить на светлую тему';
           } else {
+            // Docsify themes
             lightTheme.disabled = false;
             darkTheme.disabled = true;
+            // Prism themes
+            prismLightTheme.disabled = false;
+            prismDarkTheme.disabled = true;
+            // UI updates
             document.body.setAttribute('data-theme', 'light');
             themeSwitcher.innerHTML = '🌙';
             themeSwitcher.title = 'Переключить на тёмную тему';
