@@ -28,15 +28,40 @@
     <!-- 3. Custom Theme Properties -->
     <style>
       :root {
-        /* Reduce the font size */
-        /* --base-font-size: 14px; */
-
-        /* Change the theme color hue (0-360) */
-        /* --theme-hue: 325; */
-
-        /* Add sidebar navigation bullets */
-        /* --sidebar-nav-link-before-content-l1: "😀"; */
-        /* --sidebar-nav-link-before-content-l2: "💩"; */
+        /* Custom theme colors */
+        --theme-hue: 210;
+        --base-font-size: 15px;
+        
+        /* Sidebar bullets */
+        --sidebar-nav-link-before-content-l1: "📚";
+        --sidebar-nav-link-before-content-l2: "📄";
+        --sidebar-nav-link-before-content-l3: "▸";
+      }
+      
+      /* Edit on GitHub link styling */
+      .markdown-section p:first-child a[href*="github.com"] {
+        display: inline-block;
+        padding: 6px 12px;
+        margin-bottom: 15px;
+        background: #f8f9fa;
+        border: 1px solid #e1e4e8;
+        border-radius: 6px;
+        color: #24292e;
+        text-decoration: none;
+        font-size: 0.875rem;
+        transition: all 0.2s ease;
+      }
+      
+      .markdown-section p:first-child a[href*="github.com"]:hover {
+        background: #e1e4e8;
+        border-color: #d0d7de;
+        text-decoration: none;
+      }
+      
+      /* Edit link icon */
+      .markdown-section p:first-child a[href*="github.com"]:before {
+        content: "✏️ ";
+        margin-right: 4px;
       }
     </style>
   </head>
@@ -55,6 +80,17 @@
         auto2top: true,
         maxLevel: 3,
         subMaxLevel: 3,
+
+        // Edit on GitHub
+        plugins: [
+          function(hook, vm) {
+            hook.beforeEach(function(html) {
+              var url = 'https://github.com/Alex-0293/TopWebStack/blob/main/docs/' + vm.route.file;
+              var editHtml = '[:memo: Редактировать на GitHub](' + url + ')\n';
+              return editHtml + '\n---\n\n' + html;
+            });
+          }
+        ],
 
         // 5. docsify-themeable
         themeable: {
