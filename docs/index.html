@@ -170,17 +170,19 @@
         background: rgba(110, 118, 129, 0.4);
       }
       
-      /* Language label for code blocks */
-      .markdown-section pre[data-lang]:before {
-        content: attr(data-lang);
-        position: absolute;
-        top: 0.5rem;
-        right: 1rem;
-        color: #999;
-        font-size: 0.75rem;
-        text-transform: uppercase;
-        font-weight: bold;
-        letter-spacing: 0.5px;
+      /* Fix for docsify language labels */
+      .markdown-section pre::after {
+        display: none !important;
+      }
+      
+      .markdown-section pre[data-lang]::after {
+        display: none !important;
+      }
+      
+      /* Ensure only one language label shows */
+      .markdown-section pre code::before,
+      .markdown-section pre code::after {
+        display: none !important;
       }
     </style>
   </head>
