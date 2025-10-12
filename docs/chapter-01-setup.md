@@ -420,7 +420,7 @@ graph TB
     end
     
     subgraph server["🖥️ AlmaLinux 9 Server"]
-        subgraph podman["🐳 Podman Containers"]
+        subgraph podman["� Podman Containers"]
             backend["Backend<br/>Node.js 26"]
             frontend["Frontend<br/>Vite 6"]
             database["Database<br/>PostgreSQL 18"]
@@ -861,5 +861,3 @@ systemctl --user status podman.socket
 # Проверьте логи
 podman-compose logs
 ```
-
----

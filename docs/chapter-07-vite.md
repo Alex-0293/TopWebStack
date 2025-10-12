@@ -677,5 +677,3 @@ du -sh dist/
 # Сколько памяти использует Nginx?
 podman stats react-prod --no-stream
 ```
-
----

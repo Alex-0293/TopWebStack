@@ -688,5 +688,3 @@ podman inspect fastify-api-opt | grep -A 5 Health
 # Сколько памяти использует контейнер?
 podman stats fastify-api-opt --no-stream
 ```
-
----

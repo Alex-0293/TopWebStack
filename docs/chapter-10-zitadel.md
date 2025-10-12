@@ -590,5 +590,3 @@ curl http://localhost:3001/auth/me
 # Можно ли получить токен?
 # Проверьте через Zitadel UI
 ```
-
----

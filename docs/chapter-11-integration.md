@@ -611,5 +611,3 @@ curl http://localhost:3301
 # Работает ли сетевое взаимодействие?
 podman exec eventbrain-api ping -c 1 postgres
 ```
-
----

@@ -942,8 +942,6 @@ comodo build almalinux-dev-01 --no-cache
 
 ---
 
----
-
 **Полезные ссылки:**
 - Официальная документация: https://komo.do/docs
 - GitHub репозиторий: https://github.com/mbecker20/komodo

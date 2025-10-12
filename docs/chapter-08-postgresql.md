@@ -684,5 +684,3 @@ podman exec postgres psql -U developer -d myapp -c \
 # Работает ли Prisma?
 npx prisma studio
 ```
-
----

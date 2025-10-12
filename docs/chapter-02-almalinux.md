@@ -854,5 +854,3 @@ sudo systemctl status cockpit.socket
 # Доступен ли Cockpit через браузер?
 curl -k https://localhost:9090
 ```
-
----
