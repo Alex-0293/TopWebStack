@@ -1,6 +1,5 @@
 - Начало работы
   - [Обзор курса](README.md)
-  - [Главная страница](index.md)
 
 - Главы курса
   - [Глава 1: Настройка](chapter-01-setup.md)
@@ -13,6 +12,7 @@
   - [Глава 8: SigNoz](chapter-08-signoz.md)
   - [Глава 9: Zitadel](chapter-09-zitadel.md)
   - [Глава 10: Интеграция](chapter-10-integration.md)
+  - [Глава 11: Production](chapter-11-production.md)
 
 - Ресурсы
   - [Ссылки и документация](RESOURCES-AND-LINKS.md)
