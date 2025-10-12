@@ -41,7 +41,7 @@ graph TB
         direction TB
         komodo["🎛️ Komodo<br/>Dashboard"]
         almalinux["🐧 AlmaLinux<br/>Server"]
-        podman["🐳 Podman<br/>Containers"]
+        podman["� Podman<br/>Containers"]
         
         komodo --> almalinux
         almalinux --> podman
@@ -460,7 +460,7 @@ git remote -v
 ### Рекомендуемый Git Flow
 
 ```mermaid
-    graph TB
+graph LR
     subgraph main_branch["🎯 Main Branch (Production)"]
         initial["🎯 Initial Commit"]
         v1_0["🎉 Release v1.0"]
@@ -500,13 +500,17 @@ git remote -v
     security_fix --> v1_0_1
     security_fix --> merge_hotfix
     
-    style main_branch fill:#e8f5e8,stroke:#4caf50,stroke-width:3px
-    style develop_branch fill:#e3f2fd,stroke:#2196f3,stroke-width:2px
-    style feature_branches fill:#fff3e0,stroke:#ff9800,stroke-width:2px
-    style hotfix_branch fill:#ffebee,stroke:#f44336,stroke-width:2px
+    style main_branch fill:#4CAF50,stroke:#388E3C,stroke-width:3px,color:#fff
+    style develop_branch fill:#2196F3,stroke:#1976D2,stroke-width:3px,color:#fff
+    style feature_branches fill:#FF9800,stroke:#F57C00,stroke-width:3px,color:#fff
+    style hotfix_branch fill:#F44336,stroke:#D32F2F,stroke-width:3px,color:#fff
     
-    style v1_0 fill:#4caf50,color:#fff
-    style v1_0_1 fill:#4caf50,color:#fff
+    style initial fill:#66BB6A,stroke:#43A047,stroke-width:2px,color:#fff
+    style v1_0 fill:#66BB6A,stroke:#43A047,stroke-width:2px,color:#fff
+    style v1_0_1 fill:#66BB6A,stroke:#43A047,stroke-width:2px,color:#fff
+    style setup fill:#42A5F5,stroke:#1E88E5,stroke-width:2px,color:#fff
+    style merge_auth fill:#42A5F5,stroke:#1E88E5,stroke-width:2px,color:#fff
+    style merge_api fill:#42A5F5,stroke:#1E88E5,stroke-width:2px,color:#fff
 ```
 
 **Git Flow последовательность:**
@@ -894,139 +898,76 @@ git gc --aggressive --prune=now
 
 ## 4.10. Практическое задание
 
-### 🎯 Цель задания
+### Цель задания
 
-Создать полноценный Git workflow для проекта TopWebStack с применением изученных практик: настройка репозитория, работа с ветками, Fine-grained токены и Git hooks.
+Освоить основы Git workflow: настройка, работа с ветками и Fine-grained токены.
 
-### 📋 Задание 1: Настройка Git-окружения
+### Задание: Git Workflow на практике
 
-**1.1. Базовая конфигурация Git**
+**Шаг 1: Базовая настройка**
 
 ```bash
-# Настройте Git с вашими данными
-git config --global user.name "Ваше Имя"
+# Настройте Git
+git config --global user.name "Ваше Имя"  
 git config --global user.email "your.email@example.com"
-
-# Настройте дополнительные параметры
 git config --global init.defaultBranch main
-git config --global pull.rebase false
-git config --global core.autocrlf input  # для Linux/macOS
-```
 
-**1.2. Создайте Fine-grained Personal Access Token**
-
-1. Перейдите в GitHub Settings → Developer settings → Personal access tokens → Fine-grained tokens
-2. Создайте токен со следующими параметрами:
-   - Name: `TopWebStack-Practice`
-   - Expiration: 30 days
-   - Repository access: Selected repositories (выберите учебный репозиторий)
-   - Permissions: Contents (Read/Write), Metadata (Read), Pull requests (Read/Write)
-
-**1.3. Настройте credential helper**
-
-```bash
-# Настройка для безопасного хранения токена
-git config --global credential.helper store
-# При первом push введите username и токен как password
-```
-
-### 📋 Задание 2: Работа с Git Flow
-
-**2.1. Инициализация проекта**
-
-```bash
-# Создайте новый проект
-mkdir topwebstack-practice
-cd topwebstack-practice
+# Создайте проект
+mkdir git-practice && cd git-practice
 git init
-
-# Создайте начальную структуру
-mkdir -p {src,docs,tests,config}
-echo "# TopWebStack Practice Project" > README.md
-echo "node_modules/\n.env\n*.log" > .gitignore
+echo "# Git Practice" > README.md
+git add README.md
+git commit -m "feat: initial commit"
 ```
 
-**2.2. Реализуйте Git Flow**
+**Шаг 2: Простой Git Flow**
 
 ```bash
-# 1. Первый коммит в main
-git add .
-git commit -m "feat: initial project structure"
+# Создайте feature-ветку
+git checkout -b feature/auth
+echo "// Authentication module" > auth.js
+git add auth.js
+git commit -m "feat(auth): add authentication"
 
-# 2. Создайте ветку develop
-git checkout -b develop
-
-# 3. Добавьте базовые файлы
-echo "console.log('Hello, TopWebStack!');" > src/app.js
-echo "# Development Notes" > docs/dev-notes.md
-git add .
-git commit -m "feat: add basic application files"
-
-# 4. Создайте feature-ветку для аутентификации
-git checkout -b feature/user-auth
-
-# 5. Реализуйте "аутентификацию"
-mkdir src/auth
-echo "// User authentication module" > src/auth/auth.js
-echo "// Auth tests" > tests/auth.test.js
-git add .
-git commit -m "feat(auth): add user authentication module"
-git commit --allow-empty -m "feat(auth): add authentication tests"
-
-# 6. Вернитесь в develop и сделайте merge
-git checkout develop
-git merge feature/auth --no-ff -m "feat: merge user authentication feature"
-
-# 7. Создайте ветку для API
-git checkout -b feature/rest-api
-echo "// REST API endpoints" > src/api.js
-echo "// API tests" > tests/api.test.js
-git add .
-git commit -m "feat(api): implement REST API endpoints"
-
-# 8. Merge API в develop
-git checkout develop
-git merge feature/rest-api --no-ff -m "feat: merge REST API feature"
-
-# 9. Подготовьте релиз
-git checkout -b release/v1.0
-echo '{"version": "1.0.0", "name": "topwebstack-practice"}' > package.json
-git add package.json
-git commit -m "chore(release): prepare v1.0.0 release"
-
-# 10. Merge в main
+# Вернитесь в main и слейте
 git checkout main
-git merge release/v1.0 --no-ff -m "release: TopWebStack Practice v1.0.0"
-git tag -a v1.0.0 -m "Release version 1.0.0"
+git merge feature/auth
+git branch -d feature/auth
 
-# 11. Merge обратно в develop
-git checkout develop
-git merge release/v1.0
+# Создайте тег релиза
+git tag -a v1.0 -m "Release v1.0"
 ```
 
-**2.3. Создайте hotfix**
+**Шаг 3: GitHub и Fine-grained токены**
 
 ```bash
-# Имитируем критическую ошибку в production
-git checkout main
-git checkout -b hotfix/security-patch
-
-# Исправляем "уязвимость"
-echo "// Security patch applied" >> src/auth/auth.js
-git add .
-git commit -m "fix(security): patch authentication vulnerability"
-
-# Merge в main
-git checkout main
-git merge hotfix/security-patch --no-ff
-git tag -a v1.0.1 -m "Hotfix version 1.0.1"
-
-# Merge в develop
-git checkout develop
-git merge hotfix/security-patch
+# Создайте токен в GitHub Settings → Developer settings → Fine-grained tokens
+# Добавьте remote и запушьте
+git remote add origin https://github.com/username/git-practice.git
+git push -u origin main --tags
 ```
 
-### 📋 Задание 3: Git Hooks
+### Проверка знаний
+
+**Вопросы для самопроверки:**
+
+1. Чем отличается `git fetch` от `git pull`?
+2. Как отменить последний коммит, сохранив изменения?
+3. Какую команду использовать для создания новой ветки?
+4. Как настроить Fine-grained токен в GitHub?
+
+**Практические команды:**
+```bash
+# Отмена последнего коммита (сохраняя изменения)
+git reset --soft HEAD~1
+
+# Просмотр различий между ветками
+git diff main..develop
+
+# Временное сохранение изменений
+git stash
+git stash pop
+```
 
 **3.1. Создайте pre-commit hook**
 
@@ -1092,7 +1033,7 @@ git commit -m "bad message"  # Должно заблокировать
 git commit -m "test: add test file for hooks validation"
 ```
 
-### 📋 Задание 4: Удаленный репозиторий
+### Задание 4: Удаленный репозиторий
 
 **4.1. Подключите к GitHub**
 
@@ -1114,7 +1055,7 @@ git push origin --tags
 - ✅ Require status checks to pass before merging
 - ✅ Require branches to be up to date before merging
 
-### 🧪 Проверка знаний
+### Проверка знаний
 
 **Ответьте на вопросы (проверьте себя):**
 
@@ -1140,7 +1081,7 @@ git push origin --tags
    - Нужно применить коммит из одной ветки в другую. Какую команду использовать?
    - Как разрешить merge-конфликт в файле?
 
-### ✅ Критерии оценки
+### Критерии оценки
 
 **Отлично (5):**
 - ✅ Корректно настроен Git и Fine-grained токен
@@ -1159,7 +1100,7 @@ git push origin --tags
 - ✅ Базовое понимание Git workflow
 - ✅ Правильные ответы на 50%+ вопросов
 
-### 💡 Подсказки для выполнения
+### Подсказки для выполнения
 
 **Если возникли проблемы:**
 
@@ -1211,5 +1152,3 @@ git push origin --tags
 **Что дальше:**
 
 В следующей главе мы установим и настроим **Komodo** — систему управления инфраструктурой, которая будет использовать Git для автоматического деплоя наших контейнерных приложений.
-
----
