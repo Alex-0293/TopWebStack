@@ -18,41 +18,50 @@
 **Почему Git важен в контексте нашего стека:**
 
 ```mermaid
-    flowchart TD
-    subgraph dev_env["� Среда разработки"]
-        developer["👨‍💻<br/>Разработчик"]
-        vscode["�<br/>VS Code"]
-        local_git["📁<br/>Локальный Git"]
+graph TB
+    subgraph dev_env["💻 Среда разработки"]
+        direction TB
+        developer["👨‍💻 Разработчик"]
+        vscode["🔧 VS Code"]
+        local_git["📁 Git Repository"]
+        
+        developer --> vscode
+        vscode --> local_git
     end
     
-    subgraph cloud["☁️ Облачные сервисы"]
-        github["�<br/>GitHub<br/>Repository"]
-        actions["⚡<br/>GitHub<br/>Actions"]
+    subgraph cloud_env["☁️ Облачные сервисы"]
+        direction TB
+        github["🐙 GitHub<br/>Repository"]
+        actions["⚡ GitHub Actions<br/>CI/CD"]
+        
+        github --> actions
     end
     
-    subgraph server_env["🖥️ Серверная среда"]
-        komodo["🎛️<br/>Komodo<br/>Dashboard"]
-        almalinux["�<br/>AlmaLinux<br/>Server"]
-        podman["🐳<br/>Podman<br/>Containers"]
+    subgraph prod_env["🖥️ Production"]
+        direction TB
+        komodo["🎛️ Komodo<br/>Dashboard"]
+        almalinux["🐧 AlmaLinux<br/>Server"]
+        podman["🐳 Podman<br/>Containers"]
+        
+        komodo --> almalinux
+        almalinux --> podman
     end
     
-    developer --> |"разработка"| vscode
-    vscode --> |"версионирование"| local_git
     local_git --> |"git push"| github
-    
     github --> |"webhook"| komodo
-    github --> |"триггер"| actions
-    actions --> |"автодеплой"| komodo
+    actions --> |"deploy"| komodo
     
-    komodo --> |"оркестрация"| almalinux
-    almalinux --> |"запуск контейнеров"| podman
-    
-    style dev_env fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
-    style cloud fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
-    style server_env fill:#e8f5e8,stroke:#388e3c,stroke-width:2px
-    style github fill:#24292e,color:#fff
-    style komodo fill:#4caf50,color:#fff
-    style podman fill:#892ca0,color:#fff
+    style dev_env fill:#F05032,stroke:#D73027,stroke-width:3px,color:#fff
+    style cloud_env fill:#24292E,stroke:#181C1F,stroke-width:3px,color:#fff
+    style prod_env fill:#4CAF50,stroke:#388E3C,stroke-width:3px,color:#fff
+    style developer fill:#FF6B35,stroke:#E55100,stroke-width:2px,color:#fff
+    style vscode fill:#007ACC,stroke:#005A9D,stroke-width:2px,color:#fff
+    style local_git fill:#F05032,stroke:#D73027,stroke-width:2px,color:#fff
+    style github fill:#181717,stroke:#0D1117,stroke-width:2px,color:#fff
+    style actions fill:#2088FF,stroke:#1976D2,stroke-width:2px,color:#fff
+    style komodo fill:#66BB6A,stroke:#43A047,stroke-width:2px,color:#fff
+    style almalinux fill:#0F4C81,stroke:#0D47A1,stroke-width:2px,color:#fff
+    style podman fill:#892CA0,stroke:#6A1B9A,stroke-width:2px,color:#fff
 ```
 
 ## 4.2. Установка и первичная настройка Git
@@ -122,33 +131,35 @@ git commit -m "Initial commit"
 **Жизненный цикл файлов в Git:**
 
 ```mermaid
-flowchart TB
+graph LR
     subgraph workspace["📁 Рабочая область"]
+        direction TB
         untracked["📄 Новые файлы<br/>(Untracked)"]
         modified["✏️ Измененные файлы<br/>(Modified)"]
     end
     
-    subgraph staging["📋 Область подготовки"]
+    subgraph staging_area["📋 Staging Area"]
+        direction TB
         staged["🎯 Подготовленные<br/>(Staged)"]
     end
     
-    subgraph repository["💾 Репозиторий"]
+    subgraph git_repo["💾 Git Repository"]
+        direction TB
         committed["✅ Зафиксированные<br/>(Committed)"]
     end
     
     untracked --> |"git add"| staged
     modified --> |"git add"| staged
-    staged --> |"git commit -m 'message'"| committed
-    committed --> |"редактирование"| modified
+    staged --> |"git commit"| committed
+    committed --> |"edit files"| modified
     
-    style workspace fill:#fff3e0,stroke:#ff9800,stroke-width:2px
-    style staging fill:#e8f5e8,stroke:#4caf50,stroke-width:2px
-    style repository fill:#e3f2fd,stroke:#2196f3,stroke-width:2px
-    
-    style untracked fill:#ffcdd2,stroke:#f44336
-    style modified fill:#fff9c4,stroke:#ffc107
-    style staged fill:#c8e6c9,stroke:#4caf50
-    style committed fill:#bbdefb,stroke:#2196f3
+    style workspace fill:#FFF3E0,stroke:#FF9800,stroke-width:3px,color:#333
+    style staging_area fill:#E8F5E8,stroke:#4CAF50,stroke-width:3px,color:#333
+    style git_repo fill:#E3F2FD,stroke:#2196F3,stroke-width:3px,color:#333
+    style untracked fill:#FFCDD2,stroke:#F44336,stroke-width:2px,color:#333
+    style modified fill:#FFF9C4,stroke:#FFC107,stroke-width:2px,color:#333
+    style staged fill:#C8E6C9,stroke:#4CAF50,stroke-width:2px,color:#333
+    style committed fill:#BBDEFB,stroke:#2196F3,stroke-width:2px,color:#333
 ```
 
 **Основные команды:**
@@ -449,7 +460,7 @@ git remote -v
 ### Рекомендуемый Git Flow
 
 ```mermaid
-flowchart TB
+    graph TB
     subgraph main_branch["🎯 Main Branch (Production)"]
         initial["🎯 Initial Commit"]
         v1_0["🎉 Release v1.0"]
@@ -508,19 +519,22 @@ flowchart TB
 ### Структура веток
 
 ```mermaid
-flowchart TD
+graph TD
     subgraph permanent["🏛️ Постоянные ветки"]
+        direction TB
         main["🎯 main<br/>(production-ready)"]
         develop["🔧 develop<br/>(интеграция)"]
     end
     
     subgraph temporary["⏱️ Временные ветки"]
+        direction TB
         feature["🚀 feature/*<br/>(новые функции)"]
         release["📦 release/*<br/>(подготовка к релизу)"]
         hotfix["🛡️ hotfix/*<br/>(критические исправления)"]
     end
     
-    subgraph examples["📝 Примеры"]
+    subgraph examples["📝 Примеры веток"]
+        direction TB
         feat_auth["feature/user-auth"]
         feat_api["feature/rest-api"]
         rel_v1["release/v1.0"]
@@ -541,12 +555,14 @@ flowchart TD
     release --> rel_v1
     hotfix --> hot_sec
     
-    style permanent fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
-    style temporary fill:#fff3e0,stroke:#f57c00,stroke-width:2px
-    style examples fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
-    
-    style main fill:#4caf50,color:#fff
-    style develop fill:#2196f3,color:#fff
+    style permanent fill:#4CAF50,stroke:#388E3C,stroke-width:3px,color:#fff
+    style temporary fill:#FF9800,stroke:#F57C00,stroke-width:3px,color:#fff
+    style examples fill:#9C27B0,stroke:#7B1FA2,stroke-width:3px,color:#fff
+    style main fill:#66BB6A,stroke:#43A047,stroke-width:2px,color:#fff
+    style develop fill:#42A5F5,stroke:#1E88E5,stroke-width:2px,color:#fff
+    style feature fill:#FFB74D,stroke:#FB8C00,stroke-width:2px,color:#fff
+    style release fill:#FFA726,stroke:#F57C00,stroke-width:2px,color:#fff
+    style hotfix fill:#EF5350,stroke:#E53935,stroke-width:2px,color:#fff
 ```
 
 **Правила работы с ветками:**
