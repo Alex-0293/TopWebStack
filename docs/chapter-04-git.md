@@ -188,6 +188,211 @@ ssh-add ~/.ssh/id_ed25519
 cat ~/.ssh/id_ed25519.pub
 ```
 
+### Fine-grained Personal Access Tokens (GitHub)
+
+**Fine-grained Personal Access Tokens** — современный способ аутентификации в GitHub с детальным контролем доступа к конкретным репозиториям и ресурсам.
+
+**Преимущества Fine-grained токенов:**
+- **Точный контроль доступа** — права только на нужные репозитории
+- **Ограниченное время действия** — от 1 дня до 1 года
+- **Детальные разрешения** — read, write для конкретных ресурсов
+- **Безопасность** — минимальные необходимые права (принцип least privilege)
+- **Аудит** — подробные логи использования
+
+#### Создание Fine-grained токена
+
+**Шаг 1: Переход к настройкам токенов**
+
+1. Войдите в GitHub → **Settings** (правый верхний угол)
+2. В боковой панели выберите **Developer settings**
+3. Выберите **Personal access tokens** → **Fine-grained tokens**
+4. Нажмите **Generate new token**
+
+**Шаг 2: Базовая конфигурация**
+
+```yaml
+# Параметры токена
+Token name: "TopWebStack-Development"
+Expiration: 90 days  # или Custom для точной даты
+Description: "Токен для работы с репозиторием TopWebStack курса"
+```
+
+**Шаг 3: Выбор ресурсов**
+
+```yaml
+Resource owner: Alex-0293  # ваш username или организация
+Repository access: Selected repositories
+  Selected repositories:
+    - Alex-0293/TopWebStack
+```
+
+**Шаг 4: Настройка разрешений репозитория**
+
+```yaml
+Repository permissions:
+  Contents: Read and write          # чтение и запись файлов
+  Metadata: Read                    # базовая информация о репозитории
+  Pull requests: Read and write     # работа с PR
+  Issues: Read and write           # работа с issues
+  Actions: Read                    # просмотр GitHub Actions (если используются)
+  Commit statuses: Read and write  # статусы коммитов
+  Deployments: Read and write      # деплойменты (для Komodo интеграции)
+  
+# Опционально (если нужно)  
+Account permissions:
+  Git SSH keys: Read               # если используете SSH
+  GPG keys: Read                   # если подписываете коммиты
+```
+
+**Шаг 5: Генерация токена**
+
+После создания **обязательно скопируйте токен** — он больше не будет показан!
+
+```bash
+# Пример созданного токена
+github_pat_11ABCDEFGH_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+```
+
+#### Применение токена
+
+**Способ 1: Настройка Git credential helper**
+
+```bash
+# Настройка глобального credential helper
+git config --global credential.helper store
+
+# При первом push Git запросит учетные данные
+git push origin main
+# Username: ваш-github-username
+# Password: github_pat_11ABCDEFGH_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+```
+
+**Способ 2: Использование в URL репозитория**
+
+```bash
+# Клонирование с токеном в URL
+git clone https://github_pat_11ABCDEFGH_xxxxx@github.com/Alex-0293/TopWebStack.git
+
+# Изменение существующего remote
+git remote set-url origin https://github_pat_11ABCDEFGH_xxxxx@github.com/Alex-0293/TopWebStack.git
+```
+
+**Способ 3: Переменные окружения**
+
+```bash
+# В ~/.bashrc или ~/.zshrc
+export GITHUB_TOKEN="github_pat_11ABCDEFGH_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+# Использование в скриптах
+git clone https://$GITHUB_TOKEN@github.com/Alex-0293/TopWebStack.git
+```
+
+**Способ 4: GitHub CLI (рекомендуемый)**
+
+```bash
+# Установка GitHub CLI
+# macOS:
+brew install gh
+# AlmaLinux:
+sudo dnf install gh
+
+# Аутентификация с токеном
+gh auth login --with-token < token.txt
+
+# Проверка аутентификации
+gh auth status
+
+# Клонирование через gh
+gh repo clone Alex-0293/TopWebStack
+```
+
+#### Безопасное хранение токенов
+
+**1. Использование Git credential manager**
+
+```bash
+# Установка Git Credential Manager (рекомендуется)
+# macOS:
+brew tap microsoft/git
+brew install --cask git-credential-manager-core
+
+# Настройка
+git config --global credential.credentialStore keychain
+```
+
+**2. Переменные окружения в системе**
+
+```bash
+# macOS/Linux - добавить в ~/.bashrc или ~/.zshrc
+export GH_TOKEN="ваш_токен_здесь"
+
+# Использование
+git push  # Git автоматически найдет токен
+```
+
+**3. Файл .env (только для разработки)**
+
+```bash
+# Создание .env файла (НЕ коммитить!)
+echo "GITHUB_TOKEN=ваш_токен" > .env
+
+# Добавление в .gitignore
+echo ".env" >> .gitignore
+```
+
+#### Управление токенами
+
+**Просмотр активных токенов:**
+
+1. GitHub → Settings → Developer settings → Personal access tokens → Fine-grained tokens
+2. Видны все активные токены, их права и даты истечения
+
+**Обновление токена:**
+
+```bash
+# При истечении срока действия
+# 1. Создать новый токен (те же права)
+# 2. Обновить в Git credential manager
+git config --global --unset credential.helper
+git config --global credential.helper store
+# При следующем push ввести новый токен
+```
+
+**Отзыв токена:**
+
+Если токен скомпрометирован:
+1. GitHub → Settings → Developer settings → Personal access tokens
+2. Найти токен → **Delete** или **Regenerate**
+3. Обновить токен во всех местах использования
+
+#### Практический пример
+
+```bash
+# Полный workflow с Fine-grained токеном
+
+# 1. Создать токен в GitHub (как описано выше)
+# 2. Настроить Git
+git config --global user.name "Ваше Имя"
+git config --global user.email "your.email@example.com"
+git config --global credential.helper store
+
+# 3. Клонировать репозиторий
+git clone https://github.com/Alex-0293/TopWebStack.git
+cd TopWebStack
+
+# 4. Внести изменения
+echo "Новый контент" >> docs/chapter-04-git.md
+
+# 5. Закоммитить и запушить
+git add .
+git commit -m "feat: добавить информацию о fine-grained токенах"
+git push origin main
+# При первом пуше Git запросит токен
+
+# 6. Проверить статус
+gh auth status  # если используете GitHub CLI
+```
+
 ### Работа с remote-репозиториями
 
 ```bash
