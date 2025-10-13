@@ -10,7 +10,7 @@
 
 ### Главы курса
 
-1. **[chapter-01-infrastructure.md](chapter-01-infrastructure.md)** — Инфраструктура и планирование
+1. **[chapter-01-architecture.md](chapter-01-architecture.md)** — Архитектура среды разработки
    - Архитектура будущего проекта
    - Планирование инфраструктуры
    - Выбор технологий стека
@@ -105,7 +105,7 @@
 - ✅ [RESOURCES-AND-LINKS.md](RESOURCES-AND-LINKS.md) — ресурсы
 
 **Главы (последовательность):**
-- ✅ [Глава 1](chapter-01-infrastructure.md) → [Глава 2](chapter-02-setup.md)
+- ✅ [Глава 1](chapter-01-architecture.md) → [Глава 2](chapter-02-setup.md)
 - ✅ [Глава 2](chapter-02-setup.md) → [Глава 3](chapter-03-almalinux.md)
 - ✅ [Глава 3](chapter-03-almalinux.md) → [Глава 4](chapter-04-podman.md)
 - ✅ [Глава 4](chapter-04-podman.md) → [Глава 5](chapter-05-git.md)
@@ -161,7 +161,7 @@
 
 1. Начните с [README.md](README.md) для общего обзора
 2. Откройте [index.md](index.md) для полного содержания
-3. Следуйте главам последовательно, начиная с [Главы 1](chapter-01-infrastructure.md)
+3. Следуйте главам последовательно, начиная с [Главы 1](chapter-01-architecture.md)
 4. Выполняйте практические задания
 5. Используйте [RESOURCES-AND-LINKS.md](RESOURCES-AND-LINKS.md) как справочник
 

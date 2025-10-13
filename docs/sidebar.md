@@ -2,7 +2,7 @@
   - [Обзор курса](README.md)
 
 - Главы курса
-  - [Глава 1: Инфраструктура](chapter-01-infrastructure.md)
+  - [Глава 1: Архитектура](chapter-01-architecture.md)
   - [Глава 2: Настройка](chapter-02-setup.md)
   - [Глава 3: AlmaLinux](chapter-03-almalinux.md)
   - [Глава 4: Podman](chapter-04-podman.md)
