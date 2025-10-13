@@ -1,6 +1,9 @@
 # 🚀 TOP WEB STACK
 ## Pila de tecnologías web modernas. Desarrollo y despliegue en contenedores con AlmaLinux 9
 
+**🇷🇺 [Русская версия](https://github.com/Alex-0293/TopWebStack/blob/dev/docs/README.md)** | **[🇬🇧 English version](https://github.com/Alex-0293/TopWebStack/blob/dev/docs/en/README.md)** | **[🇪🇸 Versión en Español](https://github.com/Alex-0293/TopWebStack/blob/dev/docs/es/README.md)**
+
+---
 ## 📖 Sobre el Curso
 
 Este curso proporciona formación práctica en desarrollo web moderno utilizando tecnologías empresariales y contenedorización.
