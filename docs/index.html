@@ -157,6 +157,137 @@
         background: #ffd700;
         color: #333;
       }
+
+      /* Language Switcher */
+      .language-switcher {
+        position: fixed;
+        top: 20px;
+        right: 80px;
+        z-index: 1000;
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+        cursor: pointer;
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        user-select: none;
+        touch-action: manipulation;
+      }
+
+      .language-switcher:hover {
+        transform: scale(1.1);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      }
+
+      .language-switcher:active {
+        transform: scale(0.95);
+      }
+
+      [data-theme="dark"] .language-switcher {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      /* Language Dropdown */
+      .language-dropdown {
+        position: fixed;
+        top: 80px;
+        right: 80px;
+        z-index: 999;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        min-width: 200px;
+        padding: 8px 0;
+        display: none;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+      }
+
+      .language-dropdown.show {
+        display: block;
+        animation: fadeIn 0.2s ease;
+      }
+
+      [data-theme="dark"] .language-dropdown {
+        background: #2d3748;
+        border-color: #4a5568;
+      }
+
+      .language-option {
+        display: flex;
+        align-items: center;
+        padding: 12px 16px;
+        cursor: pointer;
+        transition: background 0.2s ease;
+        text-decoration: none;
+        color: #2d3748;
+        gap: 12px;
+        font-size: 14px;
+      }
+
+      .language-option:hover {
+        background: #f7fafc;
+      }
+
+      [data-theme="dark"] .language-option {
+        color: #e2e8f0;
+      }
+
+      [data-theme="dark"] .language-option:hover {
+        background: #4a5568;
+      }
+
+      .language-option.active {
+        background: #e6f7ff;
+        font-weight: 600;
+      }
+
+      [data-theme="dark"] .language-option.active {
+        background: #2c5282;
+      }
+
+      .language-flag {
+        font-size: 20px;
+      }
+
+      .language-name {
+        flex: 1;
+      }
+
+      .language-check {
+        color: #2196F3;
+        font-size: 16px;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .language-switcher {
+          right: 70px;
+          width: 48px;
+          height: 48px;
+        }
+
+        .language-dropdown {
+          right: 70px;
+        }
+      }
       
       [data-theme="dark"] .markdown-section p:first-child a[href*="github.com"] {
         background: #21262d;
@@ -373,6 +504,25 @@
     <button id="theme-switcher" class="theme-switcher" title="Переключить тему">
       🌙
     </button>
+
+    <!-- Language Switcher -->
+    <button id="language-switcher" class="language-switcher" title="Выбрать язык">
+      🌐
+    </button>
+
+    <!-- Language Dropdown -->
+    <div id="language-dropdown" class="language-dropdown">
+      <a href="#/" class="language-option active" data-lang="ru">
+        <span class="language-flag">🇷🇺</span>
+        <span class="language-name">Русский</span>
+        <span class="language-check">✓</span>
+      </a>
+      <a href="#/en/" class="language-option" data-lang="en">
+        <span class="language-flag">🇬🇧</span>
+        <span class="language-name">English</span>
+        <span class="language-check" style="visibility: hidden;">✓</span>
+      </a>
+    </div>
     
     <div id="app"></div>
 
@@ -386,12 +536,6 @@
         auto2top: true,
         maxLevel: 3,
         subMaxLevel: 3,
-
-        // Alias для обратной совместимости с переименованными файлами
-        alias: {
-          '/chapter-01-infrastructure': '/chapter-01-architecture',
-          '/chapter-01-infrastructure.md': '/chapter-01-architecture.md'
-        },
 
         // Edit on GitHub & Feedback Widget
         plugins: [
@@ -540,6 +684,77 @@
           const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
           setTheme(prefersDark ? 'dark' : 'light');
         }
+      })();
+    </script>
+
+    <!-- Language Switcher Script -->
+    <script>
+      (function() {
+        const languageSwitcher = document.getElementById('language-switcher');
+        const languageDropdown = document.getElementById('language-dropdown');
+        const languageOptions = document.querySelectorAll('.language-option');
+        
+        // Toggle dropdown
+        function toggleDropdown(event) {
+          event.preventDefault();
+          event.stopPropagation();
+          languageDropdown.classList.toggle('show');
+        }
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+          if (!languageSwitcher.contains(event.target) && !languageDropdown.contains(event.target)) {
+            languageDropdown.classList.remove('show');
+          }
+        });
+        
+        // Handle language selection
+        languageOptions.forEach(option => {
+          option.addEventListener('click', function(event) {
+            event.preventDefault();
+            const selectedLang = this.dataset.lang;
+            
+            // Update active state
+            languageOptions.forEach(opt => {
+              opt.classList.remove('active');
+              opt.querySelector('.language-check').style.visibility = 'hidden';
+            });
+            this.classList.add('active');
+            this.querySelector('.language-check').style.visibility = 'visible';
+            
+            // Save language preference
+            localStorage.setItem('docsify-language', selectedLang);
+            
+            // Navigate to language version
+            const targetHref = this.getAttribute('href');
+            window.location.href = targetHref;
+            
+            // Close dropdown
+            languageDropdown.classList.remove('show');
+          });
+        });
+        
+        // Event listeners
+        languageSwitcher.addEventListener('click', toggleDropdown);
+        languageSwitcher.addEventListener('touchend', toggleDropdown);
+        
+        // Prevent default touch behavior
+        languageSwitcher.addEventListener('touchstart', function(event) {
+          event.preventDefault();
+        });
+        
+        // Set active language based on current URL
+        const currentPath = window.location.hash;
+        languageOptions.forEach(option => {
+          const optionHref = option.getAttribute('href');
+          if (currentPath.startsWith(optionHref.replace('#', ''))) {
+            option.classList.add('active');
+            option.querySelector('.language-check').style.visibility = 'visible';
+          } else {
+            option.classList.remove('active');
+            option.querySelector('.language-check').style.visibility = 'hidden';
+          }
+        });
       })();
     </script>
   </body>
