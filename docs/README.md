@@ -1,7 +1,7 @@
 # 🚀 TOP WEB STACK
 ## Современный стек веб технологий. Контейнерная разработка и деплой на AlmaLinux 9
 
-**[🇷🇺 Русская версия](/)** | **[🇬🇧 English version](/en/)** | **[🇪🇸 Versión en Español](/es/)**
+**🇷🇺 Русская версия** | **[🇬🇧 English version](https://alex-0293.github.io/TopWebStack/#/en/)** | **[🇪🇸 Versión en Español](https://alex-0293.github.io/TopWebStack/#/es/)**
 
 ---
 
