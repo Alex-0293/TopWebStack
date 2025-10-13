@@ -221,43 +221,6 @@ insecure = false
 
 ## 3.3. Основные команды Podman
 
-**Жизненный цикл контейнера:**
-
-```mermaid
-graph LR
-    subgraph lifecycle["📦 Container Lifecycle"]
-        direction LR
-        pull["🔽 pull<br/>(скачать образ)"]
-        create["🆕 create<br/>(создать)"]
-        start["▶️ start<br/>(запустить)"]
-        running["✅ running<br/>(работает)"]
-        pause["⏸️ pause<br/>(пауза)"]
-        unpause["▶️ unpause<br/>(возобновить)"]
-        stop["⏹️ stop<br/>(остановить)"]
-        rm["🗑️ rm<br/>(удалить)"]
-        
-        pull --> create
-        create --> start
-        start --> running
-        running --> pause
-        pause --> unpause
-        unpause --> running
-        running --> stop
-        stop --> start
-        stop --> rm
-    end
-    
-    style lifecycle fill:#4CAF50,stroke:#388E3C,stroke-width:3px,color:#fff
-    style pull fill:#66BB6A,stroke:#43A047,stroke-width:2px,color:#fff
-    style create fill:#81C784,stroke:#66BB6A,stroke-width:2px,color:#fff
-    style start fill:#A5D6A7,stroke:#81C784,stroke-width:2px,color:#333
-    style running fill:#4CAF50,stroke:#388E3C,stroke-width:2px,color:#fff
-    style pause fill:#FFA726,stroke:#FB8C00,stroke-width:2px,color:#fff
-    style unpause fill:#66BB6A,stroke:#43A047,stroke-width:2px,color:#fff
-    style stop fill:#EF5350,stroke:#E53935,stroke-width:2px,color:#fff
-    style rm fill:#D32F2F,stroke:#C62828,stroke-width:2px,color:#fff
-```
-
 **Podman использует те же команды, что и Docker. Можно создать alias:**
 
 ```bash
