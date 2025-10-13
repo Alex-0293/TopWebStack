@@ -511,7 +511,7 @@
 
     <!-- Language Dropdown -->
     <div id="language-dropdown" class="language-dropdown">
-      <a href="#/ru/" class="language-option active" data-lang="ru">
+      <a href="#/" class="language-option active" data-lang="ru">
         <span class="language-flag">🇷🇺</span>
         <span class="language-name">Русский</span>
         <span class="language-check">✓</span>
@@ -519,6 +519,11 @@
       <a href="#/en/" class="language-option" data-lang="en">
         <span class="language-flag">🇬🇧</span>
         <span class="language-name">English</span>
+        <span class="language-check" style="visibility: hidden;">✓</span>
+      </a>
+      <a href="#/es/" class="language-option" data-lang="es">
+        <span class="language-flag">🇪🇸</span>
+        <span class="language-name">Español</span>
         <span class="language-check" style="visibility: hidden;">✓</span>
       </a>
     </div>
@@ -529,12 +534,23 @@
       // 4. Docsify Configuration
       window.$docsify = {
         name: "🚀 TOP WEB STACK",
-        coverpage: "coverpage.md",
+        coverpage: true,
         homepage: "index.md",
-        loadSidebar: "sidebar.md",
+        loadSidebar: true,
+        loadNavbar: false,
         auto2top: true,
         maxLevel: 3,
         subMaxLevel: 3,
+        
+        // Multi-language support
+        fallbackLanguages: ['en', 'es'],
+        
+        // Localized names
+        nameLink: {
+          '/en/': '#/en/',
+          '/es/': '#/es/',
+          '/': '#/'
+        },
 
         // Edit on GitHub & Feedback Widget
         plugins: [
@@ -693,31 +709,18 @@
         const languageDropdown = document.getElementById('language-dropdown');
         const languageOptions = document.querySelectorAll('.language-option');
         
-        // Detect browser language and auto-redirect on first visit
+        // Detect browser language and set default
         function detectAndSetLanguage() {
           const savedLang = localStorage.getItem('docsify-language');
           
           // If user hasn't set a language preference yet
           if (!savedLang) {
             const browserLang = navigator.language || navigator.userLanguage;
-            const langCode = browserLang.toLowerCase().split('-')[0]; // Get 'ru' from 'ru-RU'
+            const langCode = browserLang.toLowerCase().split('-')[0];
             
-            const currentPath = window.location.hash;
-            
-            // If browser is Russian and we're not already on Russian version
-            if (langCode === 'ru' && !currentPath.startsWith('#/ru/') && currentPath !== '#/' && currentPath !== '') {
-              window.location.hash = '#/ru/';
-              localStorage.setItem('docsify-language', 'ru');
-            }
-            // If browser is English and we're not already on English version
-            else if (langCode === 'en' && !currentPath.startsWith('#/en/')) {
-              window.location.hash = '#/en/';
-              localStorage.setItem('docsify-language', 'en');
-            }
-            // Default to Russian for root path
-            else if (currentPath === '#/' || currentPath === '') {
-              localStorage.setItem('docsify-language', 'ru');
-            }
+            // Set default language based on browser
+            const defaultLang = (langCode === 'en') ? 'en' : (langCode === 'es') ? 'es' : 'ru';
+            localStorage.setItem('docsify-language', defaultLang);
           }
         }
         
@@ -755,9 +758,33 @@
             // Save language preference
             localStorage.setItem('docsify-language', selectedLang);
             
+            // Get current page path
+            const currentHash = window.location.hash || '#/';
+            let currentPage = '';
+            
+            // Extract page name from current path
+            if (currentHash.includes('/en/')) {
+              currentPage = currentHash.replace('#/en/', '');
+            } else if (currentHash.includes('/es/')) {
+              currentPage = currentHash.replace('#/es/', '');
+            } else if (currentHash !== '#/' && currentHash !== '') {
+              // From Russian (root)
+              currentPage = currentHash.replace('#/', '');
+            }
+            
+            // Build new URL
+            let newHash = '';
+            if (selectedLang === 'en') {
+              newHash = currentPage ? `#/en/${currentPage}` : '#/en/';
+            } else if (selectedLang === 'es') {
+              newHash = currentPage ? `#/es/${currentPage}` : '#/es/';
+            } else {
+              // Russian (root)
+              newHash = currentPage ? `#/${currentPage}` : '#/';
+            }
+            
             // Navigate to language version
-            const targetHref = this.getAttribute('href');
-            window.location.href = targetHref;
+            window.location.hash = newHash;
             
             // Close dropdown
             languageDropdown.classList.remove('show');
@@ -774,17 +801,27 @@
         });
         
         // Set active language based on current URL
-        const currentPath = window.location.hash;
-        languageOptions.forEach(option => {
-          const optionHref = option.getAttribute('href');
-          if (currentPath.startsWith(optionHref.replace('#', ''))) {
-            option.classList.add('active');
-            option.querySelector('.language-check').style.visibility = 'visible';
-          } else {
-            option.classList.remove('active');
-            option.querySelector('.language-check').style.visibility = 'hidden';
-          }
-        });
+        function updateActiveLanguage() {
+          const currentPath = window.location.hash || '#/';
+          
+          languageOptions.forEach(option => {
+            const lang = option.dataset.lang;
+            // Check if current path matches this language
+            if ((lang === 'en' && currentPath.startsWith('#/en/')) || 
+                (lang === 'es' && currentPath.startsWith('#/es/')) ||
+                (lang === 'ru' && !currentPath.startsWith('#/en/') && !currentPath.startsWith('#/es/'))) {
+              option.classList.add('active');
+              option.querySelector('.language-check').style.visibility = 'visible';
+            } else {
+              option.classList.remove('active');
+              option.querySelector('.language-check').style.visibility = 'hidden';
+            }
+          });
+        }
+        
+        // Update active language on init and on hash change
+        updateActiveLanguage();
+        window.addEventListener('hashchange', updateActiveLanguage);
       })();
     </script>
   </body>
