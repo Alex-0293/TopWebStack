@@ -387,6 +387,12 @@
         maxLevel: 3,
         subMaxLevel: 3,
 
+        // Alias для обратной совместимости с переименованными файлами
+        alias: {
+          '/chapter-01-infrastructure': '/chapter-01-architecture',
+          '/chapter-01-infrastructure.md': '/chapter-01-architecture.md'
+        },
+
         // Edit on GitHub & Feedback Widget
         plugins: [
           function(hook, vm) {
