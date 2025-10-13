@@ -1,10 +1,9 @@
 [← Оглавление курса](index.md)
 
----
 
-# Глава 7. Vite: современный фронтенд
+# Глава 6. Vite: современный фронтенд
 
-## 7.1. Vite: зачем нужен и как работает
+## 6.1. Vite: зачем нужен и как работает
 
 **Vite** — современный build tool для фронтенд разработки, созданный автором Vue.js.
 
@@ -50,9 +49,8 @@
 - Документация: https://vitejs.dev/guide/
 - Awesome Vite: https://github.com/vitejs/awesome-vite
 
----
 
-## 7.2. Создание React-приложения с Vite
+## 6.2. Создание React-приложения с Vite
 
 ### Создание проекта
 
@@ -229,9 +227,8 @@ npm run build
 npm run preview
 ```
 
----
 
-## 7.3. Контейнеризация фронтенда
+## 6.3. Контейнеризация фронтенда
 
 ### Dockerfile для development
 
@@ -281,9 +278,8 @@ podman run -d \
 podman logs -f react-dev
 ```
 
----
 
-## 7.4. Nginx для production
+## 6.4. Nginx для production
 
 ### Multi-stage Dockerfile для production
 
@@ -493,9 +489,8 @@ curl http://localhost:8080/health
 # http://localhost:8080
 ```
 
----
 
-## 7.5. Docker Compose для fullstack приложения
+## 6.5. Docker Compose для fullstack приложения
 
 ### Создание docker-compose.yml
 
@@ -581,9 +576,8 @@ curl http://localhost:8080/health
 podman-compose down
 ```
 
----
 
-## 7.6. Оптимизация production build
+## 6.6. Оптимизация production build
 
 ### Настройка vite.config.ts для production
 
@@ -649,7 +643,6 @@ gzip -c dist/assets/*.js | wc -c
 npx lighthouse http://localhost:8080 --view
 ```
 
----
 
 **Практическое задание:**
 
@@ -677,3 +670,5 @@ du -sh dist/
 # Сколько памяти использует Nginx?
 podman stats react-prod --no-stream
 ```
+
+

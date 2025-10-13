@@ -1,10 +1,9 @@
 [← Оглавление курса](index.md)
 
----
 
-# Глава 11. Интеграция всех компонентов
+# Глава 10. Интеграция всех компонентов
 
-## 11.1. Архитектура финального решения
+## 10.1. Архитектура финального решения
 
 ### Обзор системы
 
@@ -83,9 +82,8 @@ graph TB
 | OTel Collector | 4317, 4318 | Сбор телеметрии |
 | ClickHouse | 9000 | Хранилище метрик |
 
----
 
-## 11.2. Podman Compose для всего стека
+## 10.2. Podman Compose для всего стека
 
 ### Создание полного docker-compose.yml
 
@@ -394,9 +392,8 @@ ZITADEL_CLIENT_ID=your_client_id_from_zitadel
 ZITADEL_CLIENT_SECRET=your_client_secret_from_zitadel
 ```
 
----
 
-## 11.3. Сетевое взаимодействие контейнеров
+## 10.3. Сетевое взаимодействие контейнеров
 
 ### Создание сетей
 
@@ -438,9 +435,8 @@ podman exec eventbrain-api nc -zv postgres 5432
 podman exec eventbrain-api nc -zv redis 6379
 ```
 
----
 
-## 11.4. Управление секретами
+## 10.4. Управление секретами
 
 ### Использование Podman secrets
 
@@ -488,9 +484,8 @@ API_RATE_LIMIT=100
 SESSION_TIMEOUT=3600
 ```
 
----
 
-## 11.5. CI/CD с GitLab
+## 10.5. CI/CD с GitLab
 
 ### Создание .gitlab-ci.yml
 
@@ -581,7 +576,6 @@ sudo gitlab-runner register \
   --description "AlmaLinux Podman Runner"
 ```
 
----
 
 **Практическое задание:**
 
@@ -611,3 +605,5 @@ curl http://localhost:3301
 # Работает ли сетевое взаимодействие?
 podman exec eventbrain-api ping -c 1 postgres
 ```
+
+

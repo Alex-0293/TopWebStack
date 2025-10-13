@@ -112,6 +112,32 @@
 - **Актуальная версия:** 8.2.0
 - **Дата релиза:** Январь 2025
 
+### Komodo
+- **Официальный сайт:** https://komo.do/
+- **GitHub:** https://github.com/mbecker20/komodo
+- **Документация:** https://komo.do/docs
+- **Demo:** https://demo.komo.do/
+- **Discord:** https://discord.gg/komodo
+- **Актуальная версия:** v1.14.0
+- **Дата релиза:** Январь 2025
+
+### Hyper-V (Windows Pro/Enterprise)
+- **Официальная документация:** https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/
+- **PowerShell Management:** https://docs.microsoft.com/en-us/powershell/module/hyper-v/
+- **Best Practices:** https://docs.microsoft.com/en-us/windows-server/virtualization/hyper-v/best-practices-analyzer/
+
+### VMware Workstation Pro
+- **Официальный сайт:** https://www.vmware.com/products/workstation-pro.html
+- **Документация:** https://docs.vmware.com/en/VMware-Workstation-Pro/
+- **Knowledge Base:** https://kb.vmware.com/
+
+### Proxmox VE
+- **Официальный сайт:** https://www.proxmox.com/en/proxmox-ve
+- **GitHub:** https://github.com/proxmox/pve-manager
+- **Документация:** https://pve.proxmox.com/pve-docs/
+- **Wiki:** https://pve.proxmox.com/wiki/Main_Page
+- **Forum:** https://forum.proxmox.com/
+
 ## Инструменты разработки
 
 ### Visual Studio Code
@@ -134,6 +160,19 @@
 - **Документация:** https://docs.gitlab.com/
 - **CI/CD:** https://docs.gitlab.com/ee/ci/
 - **Container Registry:** https://docs.gitlab.com/ee/user/packages/container_registry/
+
+### SSH и удаленное подключение
+- **OpenSSH Documentation:** https://www.openssh.com/manual.html
+- **SSH Config Guide:** https://www.ssh.com/academy/ssh/config
+- **SSH Key Management:** https://docs.github.com/en/authentication/connecting-to-github-with-ssh
+- **VS Code Remote SSH:** https://code.visualstudio.com/docs/remote/ssh
+
+### Network Tools
+- **nmap:** https://nmap.org/ (сетевое сканирование)
+- **netstat:** встроенная утилита Linux
+- **ss:** современная замена netstat
+- **tcpdump:** https://www.tcpdump.org/ (анализ сетевого трафика)
+- **wireshark:** https://www.wireshark.org/ (GUI анализатор трафика)
 
 ## Обучающие ресурсы
 
@@ -163,6 +202,17 @@
 **Security:**
 - Zitadel Quickstart: https://zitadel.com/docs/guides/start/quickstart
 - OWASP Top 10: https://owasp.org/www-project-top-ten/
+
+**Infrastructure & DevOps:**
+- Komodo Documentation: https://komo.do/docs
+- Hyper-V on Windows: https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/
+- VMware Workstation Tutorials: https://docs.vmware.com/en/VMware-Workstation-Pro/17/com.vmware.ws.using.doc/GUID-E6A4C8E4-5C20-4483-9E08-8C846C6B68E8.html
+- Proxmox VE Getting Started: https://pve.proxmox.com/wiki/Getting_Started
+
+**SSH & Remote Development:**
+- SSH Academy: https://www.ssh.com/academy/ssh
+- VS Code Remote Development: https://code.visualstudio.com/docs/remote/remote-overview
+- Git over SSH: https://docs.github.com/en/authentication/connecting-to-github-with-ssh
 
 ### Книги
 
@@ -211,6 +261,15 @@
 - DevOps Subreddit: https://www.reddit.com/r/devops/
 - SRE Subreddit: https://www.reddit.com/r/sre/
 
+### Komodo
+- Discord: https://discord.gg/komodo
+- GitHub Discussions: https://github.com/mbecker20/komodo/discussions
+
+### Virtualization
+- Proxmox Community Forum: https://forum.proxmox.com/
+- VMware Community: https://communities.vmware.com/
+- Hyper-V Forum: https://docs.microsoft.com/en-us/answers/topics/windows-hyper-v.html
+
 ## Полезные инструменты
 
 ### Мониторинг и отладка
@@ -234,6 +293,18 @@
 - **Grype:** https://github.com/anchore/grype
 - **Clair:** https://github.com/quay/clair
 
+### Инфраструктура и виртуализация
+- **Terraform:** https://www.terraform.io/ (Infrastructure as Code)
+- **Ansible:** https://www.ansible.com/ (конфигурационное управление)  
+- **Vagrant:** https://www.vagrantup.com/ (управление виртуальными машинами)
+- **Packer:** https://www.packer.io/ (создание образов машин)
+
+### SSH и удаленная работа
+- **mosh:** https://mosh.org/ (мобильный SSH)
+- **tmux:** https://github.com/tmux/tmux (терминальный мультиплексор)
+- **screen:** https://www.gnu.org/software/screen/ (альтернатива tmux)
+- **autossh:** https://www.harding.motd.ca/autossh/ (автоматический SSH туннель)
+
 ## Чек-листы и шпаргалки
 
 ### Podman
@@ -252,6 +323,18 @@
 - Node.js Best Practices: https://github.com/goldbergyoni/nodebestpractices
 - JavaScript Cheat Sheet: https://htmlcheatsheet.com/js/
 
+### SSH
+- SSH Config Examples: https://www.ssh.com/academy/ssh/config#ssh-config-file-example
+- SSH Key Types Guide: https://www.ssh.com/academy/ssh/keygen
+
+### Komodo
+- Komodo CLI Reference: https://komo.do/docs/cli
+- Komodo API Documentation: https://komo.do/docs/api
+
+### Virtualization
+- Hyper-V PowerShell Commands: https://docs.microsoft.com/en-us/powershell/module/hyper-v/
+- VMware CLI Reference: https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vcli.ref.doc/cli_right_pane.html
+
 ## Примеры проектов
 
 ### Starter Templates
@@ -263,6 +346,13 @@
 - **EventBrain (этот проект):** См. репозиторий курса
 - **Awesome Fastify:** https://github.com/fastify/awesome-fastify
 - **Real World App:** https://github.com/gothinkster/realworld
+- **Komodo Examples:** https://github.com/mbecker20/komodo/tree/main/examples
+- **AlmaLinux Containers:** https://github.com/AlmaLinux/docker-images
+
+### Infrastructure Examples
+- **Terraform AlmaLinux:** https://registry.terraform.io/providers/hashicorp/libvirt/latest/docs
+- **Ansible AlmaLinux Playbooks:** https://github.com/AlmaLinux/ansible-collection-almalinux
+- **Vagrant AlmaLinux Boxes:** https://app.vagrantup.com/almalinux
 
 ## Обновления и новости
 
@@ -272,6 +362,9 @@
 - **Node.js Blog:** https://nodejs.org/en/blog/
 - **PostgreSQL News:** https://www.postgresql.org/about/news/
 - **SigNoz Blog:** https://signoz.io/blog/
+- **Komodo Updates:** https://github.com/mbecker20/komodo/releases
+- **VMware News:** https://blogs.vmware.com/
+- **Microsoft Virtualization Blog:** https://techcommunity.microsoft.com/t5/virtualization/bg-p/Virtualization
 
 ### Подкасты
 - **The Changelog:** https://changelog.com/podcast
@@ -286,10 +379,12 @@
 ## Поддержка и помощь
 
 ### Где задать вопрос
-1. **Stack Overflow:** https://stackoverflow.com/ (тег: almalinux, podman, node.js, postgresql)
+1. **Stack Overflow:** https://stackoverflow.com/ 
+   - Теги: almalinux, podman, node.js, postgresql, komodo, hyper-v, vmware, ssh
 2. **GitHub Issues:** В репозитории соответствующего проекта
 3. **Reddit:** Специализированные сабреддиты
 4. **Discord/Slack:** Официальные каналы проектов
+5. **Форумы:** Proxmox, VMware Community, Microsoft Tech Community
 
 ### Как задавать вопросы
 - Используйте шаблон: проблема → что пробовали → ожидаемый результат

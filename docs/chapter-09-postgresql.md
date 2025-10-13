@@ -1,10 +1,9 @@
 [← Оглавление курса](index.md)
 
----
 
-# Глава 8. PostgreSQL: надежное хранение данных
+# Глава 7. PostgreSQL: надежное хранение данных
 
-## 8.1. PostgreSQL 18: новые возможности
+## 7.1. PostgreSQL 18: новые возможности
 
 **PostgreSQL** — мощная open-source объектно-реляционная СУБД с 35+ летней историей.
 
@@ -50,9 +49,8 @@
 - Документация: https://www.postgresql.org/docs/18/
 - Wiki: https://wiki.postgresql.org/
 
----
 
-## 8.2. Развертывание PostgreSQL в контейнере
+## 7.2. Развертывание PostgreSQL в контейнере
 
 ### Простой запуск
 
@@ -256,9 +254,8 @@ podman-compose -f docker-compose.postgres.yml ps
 podman exec -it postgres psql -U developer -d myapp
 ```
 
----
 
-## 8.3. Инициализация базы данных
+## 7.3. Инициализация базы данных
 
 ### Создание init скрипта
 
@@ -342,9 +339,8 @@ podman-compose -f docker-compose.postgres.yml up -d
 podman exec -it postgres psql -U developer -d myapp -c "\dt"
 ```
 
----
 
-## 8.4. Подключение из Node.js через Prisma
+## 7.4. Подключение из Node.js через Prisma
 
 **Prisma** — современный ORM для Node.js и TypeScript.
 
@@ -585,9 +581,8 @@ const start = async () => {
 start();
 ```
 
----
 
-## 8.5. Backup и восстановление
+## 7.5. Backup и восстановление
 
 ### Создание backup
 
@@ -657,7 +652,6 @@ crontab -e
 # Добавьте: 0 2 * * * /home/developer/backup-postgres.sh
 ```
 
----
 
 **Практическое задание:**
 
@@ -684,3 +678,5 @@ podman exec postgres psql -U developer -d myapp -c \
 # Работает ли Prisma?
 npx prisma studio
 ```
+
+

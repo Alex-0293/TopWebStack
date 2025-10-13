@@ -1,10 +1,9 @@
 [← Оглавление курса](index.md)
 
----
 
-# Глава 9. SigNoz: мониторинг и observability
+# Глава 8. SigNoz: мониторинг и observability
 
-## 9.1. Что такое SigNoz и OpenTelemetry
+## 8.1. Что такое SigNoz и OpenTelemetry
 
 **SigNoz** — open-source платформа для observability (мониторинг, трейсинг, логирование).
 
@@ -104,9 +103,8 @@ graph LR
 - GitHub: https://github.com/open-telemetry
 - Документация: https://opentelemetry.io/docs/
 
----
 
-## 9.2. Развертывание SigNoz stack
+## 8.2. Развертывание SigNoz stack
 
 ### Подготовка
 
@@ -335,9 +333,8 @@ podman-compose logs -f
 # http://localhost:3301
 ```
 
----
 
-## 9.3. Интеграция с Node.js приложением
+## 8.3. Интеграция с Node.js приложением
 
 ### Установка OpenTelemetry SDK
 
@@ -584,9 +581,8 @@ done
 # http://localhost:3301
 ```
 
----
 
-## 9.4. Настройка дашбордов и алертов
+## 8.4. Настройка дашбордов и алертов
 
 ### Создание custom метрик
 
@@ -655,9 +651,8 @@ threshold: 5
 severity: critical
 ```
 
----
 
-## 9.5. Анализ трейсов и метрик
+## 8.5. Анализ трейсов и метрик
 
 ### Просмотр трейсов
 
@@ -705,7 +700,6 @@ GROUP BY http_route
 ORDER BY error_rate DESC;
 ```
 
----
 
 **Практическое задание:**
 
@@ -731,3 +725,5 @@ curl http://localhost:4318/v1/traces
 # Какой P95 latency у API?
 # Проверьте в Metrics
 ```
+
+

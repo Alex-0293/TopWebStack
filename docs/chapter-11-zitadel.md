@@ -1,10 +1,9 @@
 [← Оглавление курса](index.md)
 
----
 
-# Глава 10. Zitadel IAM: централизованная аутентификация
+# Глава 9. Zitadel IAM: централизованная аутентификация
 
-## 10.1. Zitadel: современный IAM
+## 9.1. Zitadel: современный IAM
 
 **Zitadel** — open-source Identity and Access Management (IAM) платформа.
 
@@ -43,9 +42,8 @@
 - Документация: https://zitadel.com/docs
 - Community: https://zitadel.com/chat
 
----
 
-## 10.2. Развертывание Zitadel
+## 9.2. Развертывание Zitadel
 
 ### Подготовка
 
@@ -163,9 +161,8 @@ podman-compose -f docker-compose.zitadel.yaml logs -f zitadel
 # Password: Admin123!Strong (из .env)
 ```
 
----
 
-## 10.3. Настройка организации и проектов
+## 9.3. Настройка организации и проектов
 
 ### Создание проекта через UI
 
@@ -212,9 +209,8 @@ curl -X POST http://localhost:8080/management/v1/projects \
   }'
 ```
 
----
 
-## 10.4. OIDC/OAuth2 интеграция
+## 9.4. OIDC/OAuth2 интеграция
 
 ### Установка зависимостей
 
@@ -442,9 +438,8 @@ fastify.get('/protected', { preHandler: requireAuth }, async (request, reply) =>
 });
 ```
 
----
 
-## 10.5. Подключение к React через Lucia Auth
+## 9.5. Подключение к React через Lucia Auth
 
 ### Установка зависимостей
 
@@ -563,7 +558,6 @@ function App() {
 export default App;
 ```
 
----
 
 **Практическое задание:**
 
@@ -590,3 +584,5 @@ curl http://localhost:3001/auth/me
 # Можно ли получить токен?
 # Проверьте через Zitadel UI
 ```
+
+

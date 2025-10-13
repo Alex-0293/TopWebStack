@@ -1,6 +1,5 @@
 [← Оглавление курса](index.md)
 
----
 
 # Глава 2. AlmaLinux и основы системы
 
@@ -41,7 +40,6 @@
 - Документация: https://wiki.almalinux.org/
 - ISO образы: https://mirrors.almalinux.org/isos.html
 
----
 
 ## 2.2. Установка и первичная настройка
 
@@ -124,7 +122,6 @@ sudo localectl set-locale LANG=ru_RU.UTF-8
 localectl
 ```
 
----
 
 ## 2.3. Управление пакетами через DNF
 
@@ -190,7 +187,6 @@ dnf module info nodejs
 sudo dnf module install nodejs:20/common
 ```
 
----
 
 ## 2.4. Firewalld и сетевая безопасность
 
@@ -267,7 +263,6 @@ sudo firewall-cmd --reload
 sudo firewall-cmd --list-ports
 ```
 
----
 
 ## 2.5. Systemd: управление сервисами
 
@@ -423,7 +418,6 @@ sudo systemctl enable myapp
 sudo systemctl status myapp
 ```
 
----
 
 ## 2.6. Cockpit: веб-интерфейс для управления сервером
 
@@ -822,7 +816,6 @@ sudo journalctl -u cockpit.service -f
 sudo journalctl -u cockpit-ws -f
 ```
 
----
 
 **Практическое задание:**
 
@@ -854,3 +847,5 @@ sudo systemctl status cockpit.socket
 # Доступен ли Cockpit через браузер?
 curl -k https://localhost:9090
 ```
+
+

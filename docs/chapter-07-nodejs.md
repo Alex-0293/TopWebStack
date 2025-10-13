@@ -1,10 +1,9 @@
 [← Оглавление курса](index.md)
 
----
 
-# Глава 6. Node.js: современная разработка
+# Глава 5. Node.js: современная разработка
 
-## 6.1. Node.js 26 LTS: что нового
+## 5.1. Node.js 26 LTS: что нового
 
 **Node.js** — JavaScript runtime, построенный на движке V8 от Google Chrome, для выполнения JavaScript на сервере.
 
@@ -55,9 +54,8 @@
 - Release Schedule: https://github.com/nodejs/release#release-schedule
 - Best Practices: https://github.com/goldbergyoni/nodebestpractices
 
----
 
-## 6.2. Установка Node.js через NVM
+## 5.2. Установка Node.js через NVM
 
 **NVM (Node Version Manager)** — инструмент для управления несколькими версиями Node.js.
 
@@ -134,9 +132,8 @@ nvm use
 # Now using node v26.0.0
 ```
 
----
 
-## 6.3. Создание простого API на Fastify
+## 5.3. Создание простого API на Fastify
 
 **Fastify** — быстрый и низкоуровневый web framework для Node.js.
 
@@ -380,9 +377,8 @@ curl http://localhost:3001/health
 # Вывод: {"status":"ok","timestamp":"...","uptime":...}
 ```
 
----
 
-## 6.4. Контейнеризация Node.js приложения
+## 5.4. Контейнеризация Node.js приложения
 
 ### Создание Dockerfile
 
@@ -464,9 +460,8 @@ podman stop fastify-api
 podman rm fastify-api
 ```
 
----
 
-## 6.5. Multi-stage builds для оптимизации
+## 5.5. Multi-stage builds для оптимизации
 
 **Multi-stage builds** позволяют создавать оптимизированные образы, разделяя процесс сборки и runtime.
 
@@ -595,9 +590,8 @@ podman inspect fastify-api-opt | grep -A 10 Health
 podman logs -f fastify-api-opt
 ```
 
----
 
-## 6.6. Интеграция с Podman Compose
+## 5.6. Интеграция с Podman Compose
 
 ### Создание docker-compose.yml
 
@@ -661,7 +655,6 @@ podman-compose down
 podman-compose down --rmi all
 ```
 
----
 
 **Практическое задание:**
 
@@ -688,3 +681,5 @@ podman inspect fastify-api-opt | grep -A 5 Health
 # Сколько памяти использует контейнер?
 podman stats fastify-api-opt --no-stream
 ```
+
+

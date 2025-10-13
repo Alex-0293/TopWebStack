@@ -10,71 +10,83 @@
 
 ### Главы курса
 
-1. **[chapter-01-setup.md](chapter-01-setup.md)** — Настройка рабочего места разработчика
+1. **[chapter-01-infrastructure.md](chapter-01-infrastructure.md)** — Инфраструктура и планирование
+   - Архитектура будущего проекта
+   - Планирование инфраструктуры
+   - Выбор технологий стека
+   - Диаграммы взаимодействия
+
+2. **[chapter-02-setup.md](chapter-02-setup.md)** — Настройка рабочего места разработчика
    - Установка VSCode на macOS
    - Настройка SSH и Remote Development
    - Создание проекта на удаленном сервере
    - Настройка Dev Container
 
-2. **[chapter-02-almalinux.md](chapter-02-almalinux.md)** — AlmaLinux и основы системы
+3. **[chapter-03-almalinux.md](chapter-03-almalinux.md)** — AlmaLinux и основы системы
    - Что такое AlmaLinux
    - Установка и настройка
    - DNF, Firewalld, Systemd
    - Cockpit веб-интерфейс
 
-3. **[chapter-03-podman.md](chapter-03-podman.md)** — Podman: контейнеризация без Docker
+4. **[chapter-04-podman.md](chapter-04-podman.md)** — Podman: контейнеризация без Docker
    - Архитектура Podman vs Docker
    - Установка и настройка
    - Основные команды
    - Podman Compose
    - Rootless контейнеры
 
-4. **[chapter-04-comodo.md](chapter-04-comodo.md)** — Komodo: управление инфраструктурой
+5. **[chapter-05-git.md](chapter-05-git.md)** — Git: система контроля версий
+   - Основы работы с Git
+   - Настройка и конфигурация
+   - Git workflow и best practices
+   - Интеграция с GitHub/GitLab
+
+6. **[chapter-06-komodo.md](chapter-06-komodo.md)** — Komodo: управление инфраструктурой
    - Установка Komodo Core
    - Управление серверами
    - Stacks и Deployments
    - Builds и автоматизация
    - Мониторинг и алерты
 
-5. **[chapter-05-nodejs.md](chapter-05-nodejs.md)** — Node.js: современная разработка
+7. **[chapter-07-nodejs.md](chapter-07-nodejs.md)** — Node.js: современная разработка
    - Установка Node.js через NVM
    - Создание API на Fastify
    - Контейнеризация приложения
    - Multi-stage builds
 
-6. **[chapter-06-vite.md](chapter-06-vite.md)** — Vite: современный фронтенд
+8. **[chapter-08-vite.md](chapter-08-vite.md)** — Vite: современный фронтенд
    - Создание React приложения
    - Контейнеризация фронтенда
    - Nginx для production
    - Оптимизация build
 
-7. **[chapter-07-postgresql.md](chapter-07-postgresql.md)** — PostgreSQL: надежное хранение
+9. **[chapter-09-postgresql.md](chapter-09-postgresql.md)** — PostgreSQL: надежное хранение
    - Развертывание в контейнере
    - Инициализация БД
    - Интеграция с Prisma
    - Backup и восстановление
 
-8. **[chapter-08-signoz.md](chapter-08-signoz.md)** — SigNoz: мониторинг и observability
-   - Архитектура SigNoz
-   - Развертывание stack
-   - Интеграция с Node.js
-   - OpenTelemetry
-   - Дашборды и алерты
+10. **[chapter-10-signoz.md](chapter-10-signoz.md)** — SigNoz: мониторинг и observability
+    - Архитектура SigNoz
+    - Развертывание stack
+    - Интеграция с Node.js
+    - OpenTelemetry
+    - Дашборды и алерты
 
-9. **[chapter-09-zitadel.md](chapter-09-zitadel.md)** — Zitadel IAM: аутентификация
-   - Развертывание Zitadel
-   - Настройка организаций
-   - OIDC/OAuth2 интеграция
-   - Подключение через Lucia Auth
+11. **[chapter-11-zitadel.md](chapter-11-zitadel.md)** — Zitadel IAM: аутентификация
+    - Развертывание Zitadel
+    - Настройка организаций
+    - OIDC/OAuth2 интеграция
+    - Подключение через Lucia Auth
 
-10. **[chapter-10-integration.md](chapter-10-integration.md)** — Интеграция компонентов
+12. **[chapter-12-integration.md](chapter-12-integration.md)** — Интеграция компонентов
     - Архитектура полного решения
     - Podman Compose для всего стека
     - Сетевое взаимодействие
     - Управление секретами
     - CI/CD с GitLab
 
-11. **[chapter-11-production.md](chapter-11-production.md)** — Production-ready практики
+13. **[chapter-13-production.md](chapter-13-production.md)** — Production-ready практики
     - Логирование и ротация
     - Health checks
     - Backup-стратегия
@@ -93,16 +105,18 @@
 - ✅ [RESOURCES-AND-LINKS.md](RESOURCES-AND-LINKS.md) — ресурсы
 
 **Главы (последовательность):**
-- ✅ [Глава 1](chapter-01-setup.md) → [Глава 2](chapter-02-almalinux.md)
-- ✅ [Глава 2](chapter-02-almalinux.md) → [Глава 3](chapter-03-podman.md)
-- ✅ [Глава 3](chapter-03-podman.md) → [Глава 4](chapter-04-comodo.md)
-- ✅ [Глава 4](chapter-04-comodo.md) → [Глава 5](chapter-05-nodejs.md)
-- ✅ [Глава 5](chapter-05-nodejs.md) → [Глава 6](chapter-06-vite.md)
-- ✅ [Глава 6](chapter-06-vite.md) → [Глава 7](chapter-07-postgresql.md)
-- ✅ [Глава 7](chapter-07-postgresql.md) → [Глава 8](chapter-08-signoz.md)
-- ✅ [Глава 8](chapter-08-signoz.md) → [Глава 9](chapter-09-zitadel.md)
-- ✅ [Глава 9](chapter-09-zitadel.md) → [Глава 10](chapter-10-integration.md)
-- ✅ [Глава 10](chapter-10-integration.md) → [Глава 11](chapter-11-production.md)
+- ✅ [Глава 1](chapter-01-infrastructure.md) → [Глава 2](chapter-02-setup.md)
+- ✅ [Глава 2](chapter-02-setup.md) → [Глава 3](chapter-03-almalinux.md)
+- ✅ [Глава 3](chapter-03-almalinux.md) → [Глава 4](chapter-04-podman.md)
+- ✅ [Глава 4](chapter-04-podman.md) → [Глава 5](chapter-05-git.md)
+- ✅ [Глава 5](chapter-05-git.md) → [Глава 6](chapter-06-komodo.md)
+- ✅ [Глава 6](chapter-06-komodo.md) → [Глава 7](chapter-07-nodejs.md)
+- ✅ [Глава 7](chapter-07-nodejs.md) → [Глава 8](chapter-08-vite.md)
+- ✅ [Глава 8](chapter-08-vite.md) → [Глава 9](chapter-09-postgresql.md)
+- ✅ [Глава 9](chapter-09-postgresql.md) → [Глава 10](chapter-10-signoz.md)
+- ✅ [Глава 10](chapter-10-signoz.md) → [Глава 11](chapter-11-zitadel.md)
+- ✅ [Глава 11](chapter-11-zitadel.md) → [Глава 12](chapter-12-integration.md)
+- ✅ [Глава 12](chapter-12-integration.md) → [Глава 13](chapter-13-production.md)
 
 **Навигация в главах:**
 - Каждая глава имеет ссылку на [index.md](index.md) (оглавление)
@@ -147,7 +161,7 @@
 
 1. Начните с [README.md](README.md) для общего обзора
 2. Откройте [index.md](index.md) для полного содержания
-3. Следуйте главам последовательно, начиная с [Главы 1](chapter-01-setup.md)
+3. Следуйте главам последовательно, начиная с [Главы 1](chapter-01-infrastructure.md)
 4. Выполняйте практические задания
 5. Используйте [RESOURCES-AND-LINKS.md](RESOURCES-AND-LINKS.md) как справочник
 
