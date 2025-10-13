@@ -13,5 +13,9 @@
 
 This course presents a modern technology stack for web application development
 
+---
+
+> ⚠️ **Note:** English translation is in progress. Most course chapters are currently available in Russian only. Main pages (homepage, resources) are fully translated.
+
 [Start Learning](#main)
 [Resources and Links](/en/RESOURCES-AND-LINKS.md)

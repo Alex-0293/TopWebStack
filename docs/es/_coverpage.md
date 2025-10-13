@@ -13,5 +13,9 @@
 
 Este curso presenta una pila de tecnologías moderna para el desarrollo de aplicaciones web
 
+---
+
+> ⚠️ **Nota:** La traducción al español está en progreso. La mayoría de los capítulos del curso están disponibles actualmente solo en ruso. Las páginas principales (inicio, recursos) están completamente traducidas.
+
 [Comenzar a Aprender](#main)
 [Recursos y Enlaces](/es/RESOURCES-AND-LINKS.md)
