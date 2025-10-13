@@ -578,28 +578,99 @@
               }
 
               var currentPage = vm.route.file || 'unknown';
-              var pageTitle = currentPage.replace('.md', '').replace('chapter-', 'Глава ');
+              var currentPath = vm.route.path || '';
+              
+              // Определяем язык по пути
+              var lang = 'ru'; // по умолчанию
+              if (currentPath.startsWith('/en/')) {
+                lang = 'en';
+              } else if (currentPath.startsWith('/es/')) {
+                lang = 'es';
+              }
+              
+              // Локализация виджета
+              var translations = {
+                ru: {
+                  title: '📝 Была ли полезна эта страница?',
+                  description: 'Ваш отзыв поможет нам улучшить курс TopWebStack. Поделитесь своим мнением!',
+                  pageTitle: currentPage.replace('.md', '').replace('chapter-', 'Глава '),
+                  buttons: {
+                    positive: '👍 Полезно',
+                    bug: '🐛 Есть ошибка',
+                    suggestion: '💡 Предложение',
+                    discussions: '💬 Обсуждения'
+                  },
+                  issues: {
+                    positiveTitle: '👍 Полезная страница: ',
+                    positiveBody: '**Страница:** ' + currentPage + '\n\n**Что понравилось:**\n\n**Предложения по улучшению:**\n\n',
+                    bugTitle: '🐛 Ошибка на странице: ',
+                    bugBody: '**Страница:** ' + currentPage + '\n\n**Описание ошибки:**\n\n**Ожидаемое поведение:**\n\n**Дополнительная информация:**\n\n',
+                    suggestionTitle: '💡 Предложение для: ',
+                    suggestionBody: '**Страница:** ' + currentPage + '\n\n**Предложение:**\n\n**Обоснование:**\n\n**Дополнительные детали:**\n\n'
+                  }
+                },
+                en: {
+                  title: '📝 Was this page helpful?',
+                  description: 'Your feedback helps us improve the TopWebStack course. Share your thoughts!',
+                  pageTitle: currentPage.replace('.md', '').replace('chapter-', 'Chapter '),
+                  buttons: {
+                    positive: '👍 Helpful',
+                    bug: '🐛 Report Bug',
+                    suggestion: '💡 Suggestion',
+                    discussions: '💬 Discussions'
+                  },
+                  issues: {
+                    positiveTitle: '👍 Helpful page: ',
+                    positiveBody: '**Page:** ' + currentPage + '\n\n**What I liked:**\n\n**Suggestions for improvement:**\n\n',
+                    bugTitle: '🐛 Bug on page: ',
+                    bugBody: '**Page:** ' + currentPage + '\n\n**Bug description:**\n\n**Expected behavior:**\n\n**Additional information:**\n\n',
+                    suggestionTitle: '💡 Suggestion for: ',
+                    suggestionBody: '**Page:** ' + currentPage + '\n\n**Suggestion:**\n\n**Rationale:**\n\n**Additional details:**\n\n'
+                  }
+                },
+                es: {
+                  title: '📝 ¿Fue útil esta página?',
+                  description: '¡Tu opinión nos ayuda a mejorar el curso TopWebStack. Comparte tus ideas!',
+                  pageTitle: currentPage.replace('.md', '').replace('chapter-', 'Capítulo '),
+                  buttons: {
+                    positive: '👍 Útil',
+                    bug: '🐛 Reportar Error',
+                    suggestion: '💡 Sugerencia',
+                    discussions: '💬 Discusiones'
+                  },
+                  issues: {
+                    positiveTitle: '👍 Página útil: ',
+                    positiveBody: '**Página:** ' + currentPage + '\n\n**Lo que me gustó:**\n\n**Sugerencias de mejora:**\n\n',
+                    bugTitle: '🐛 Error en página: ',
+                    bugBody: '**Página:** ' + currentPage + '\n\n**Descripción del error:**\n\n**Comportamiento esperado:**\n\n**Información adicional:**\n\n',
+                    suggestionTitle: '💡 Sugerencia para: ',
+                    suggestionBody: '**Página:** ' + currentPage + '\n\n**Sugerencia:**\n\n**Justificación:**\n\n**Detalles adicionales:**\n\n'
+                  }
+                }
+              };
+              
+              var t = translations[lang];
               
               var feedbackWidget = `
                 <div class="feedback-widget">
-                  <h4>📝 Была ли полезна эта страница?</h4>
-                  <p>Ваш отзыв поможет нам улучшить курс TopWebStack. Поделитесь своим мнением!</p>
+                  <h4>${t.title}</h4>
+                  <p>${t.description}</p>
                   <div class="feedback-buttons">
-                    <a href="https://github.com/Alex-0293/TopWebStack/issues/new?assignees=&labels=feedback%2C+positive&template=&title=${encodeURIComponent('👍 Полезная страница: ' + pageTitle)}&body=${encodeURIComponent('**Страница:** ' + currentPage + '\n\n**Что понравилось:**\n\n**Предложения по улучшению:**\n\n')}" 
+                    <a href="https://github.com/Alex-0293/TopWebStack/issues/new?assignees=&labels=feedback%2C+positive&template=&title=${encodeURIComponent(t.issues.positiveTitle + t.pageTitle)}&body=${encodeURIComponent(t.issues.positiveBody)}" 
                        class="feedback-btn positive" target="_blank" rel="noopener">
-                       👍 Полезно
+                       ${t.buttons.positive}
                     </a>
-                    <a href="https://github.com/Alex-0293/TopWebStack/issues/new?assignees=&labels=bug%2C+needs-review&template=&title=${encodeURIComponent('🐛 Ошибка на странице: ' + pageTitle)}&body=${encodeURIComponent('**Страница:** ' + currentPage + '\n\n**Описание ошибки:**\n\n**Ожидаемое поведение:**\n\n**Дополнительная информация:**\n\n')}" 
+                    <a href="https://github.com/Alex-0293/TopWebStack/issues/new?assignees=&labels=bug%2C+needs-review&template=&title=${encodeURIComponent(t.issues.bugTitle + t.pageTitle)}&body=${encodeURIComponent(t.issues.bugBody)}" 
                        class="feedback-btn negative" target="_blank" rel="noopener">
-                       🐛 Есть ошибка
+                       ${t.buttons.bug}
                     </a>
-                    <a href="https://github.com/Alex-0293/TopWebStack/issues/new?assignees=&labels=enhancement%2C+suggestion&template=&title=${encodeURIComponent('💡 Предложение для: ' + pageTitle)}&body=${encodeURIComponent('**Страница:** ' + currentPage + '\n\n**Предложение:**\n\n**Обоснование:**\n\n**Дополнительные детали:**\n\n')}" 
+                    <a href="https://github.com/Alex-0293/TopWebStack/issues/new?assignees=&labels=enhancement%2C+suggestion&template=&title=${encodeURIComponent(t.issues.suggestionTitle + t.pageTitle)}&body=${encodeURIComponent(t.issues.suggestionBody)}" 
                        class="feedback-btn suggestion" target="_blank" rel="noopener">
-                       💡 Предложение
+                       ${t.buttons.suggestion}
                     </a>
                     <a href="https://github.com/Alex-0293/TopWebStack/discussions" 
                        class="feedback-btn github" target="_blank" rel="noopener">
-                       💬 Обсуждения
+                       ${t.buttons.discussions}
                     </a>
                   </div>
                 </div>`;
