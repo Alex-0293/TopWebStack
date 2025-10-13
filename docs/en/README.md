@@ -1,10 +1,6 @@
 # 🚀 TOP WEB STACK
 ## Modern web technology stack. Container development and deployment on AlmaLinux 9
 
-**[🇷🇺 Russian version](/)** | **[🇬🇧 English version](/en/)** | **[🇪🇸 Spanish version](/es/)**
-
----
-
 ## 📖 About the Course
 
 This course provides practical training in modern web development using enterprise-ready technologies and containerization.
