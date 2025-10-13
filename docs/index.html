@@ -542,6 +542,14 @@
         maxLevel: 3,
         subMaxLevel: 3,
         
+        // Alias для явного указания путей
+        alias: {
+          '/_sidebar.md': '/_sidebar.md',
+          '/en/_sidebar.md': '/en/_sidebar.md',
+          '/es/_sidebar.md': '/es/_sidebar.md',
+          '.*/_sidebar.md': '/_sidebar.md'
+        },
+        
         // Multi-language support
         fallbackLanguages: ['en', 'es'],
         
