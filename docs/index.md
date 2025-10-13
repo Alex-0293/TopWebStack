@@ -168,6 +168,38 @@
 
 ---
 
+## 📝 Обратная связь
+
+Ваше мнение очень важно для улучшения курса! Поделитесь своими впечатлениями, предложениями или сообщите об ошибках.
+
+<div class="feedback-widget">
+  <h4>💬 Помогите улучшить курс TopWebStack</h4>
+  <p>Поделитесь своим опытом прохождения курса, предложите улучшения или сообщите о найденных ошибках.</p>
+  <div class="feedback-buttons">
+    <a href="https://github.com/Alex-0293/TopWebStack/issues/new?assignees=&labels=feedback%2C+positive&template=&title=%F0%9F%91%8D+%D0%9F%D0%BE%D0%BB%D0%B5%D0%B7%D0%BD%D1%8B%D0%B9+%D0%BA%D1%83%D1%80%D1%81&body=**%D0%A7%D1%82%D0%BE+%D0%BF%D0%BE%D0%BD%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%BE%D1%81%D1%8C%3A**%0A%0A**%D0%9F%D1%80%D0%B5%D0%B4%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D1%8F+%D0%BF%D0%BE+%D1%83%D0%BB%D1%83%D1%87%D1%88%D0%B5%D0%BD%D0%B8%D1%8E%3A**%0A%0A" 
+       class="feedback-btn positive" target="_blank" rel="noopener">
+       👍 Полезный курс
+    </a>
+    <a href="https://github.com/Alex-0293/TopWebStack/issues/new?assignees=&labels=bug%2C+needs-review&template=&title=%F0%9F%90%9B+%D0%9E%D1%88%D0%B8%D0%B1%D0%BA%D0%B0+%D0%B2+%D0%BA%D1%83%D1%80%D1%81%D0%B5&body=**%D0%93%D0%BB%D0%B0%D0%B2%D0%B0%2F%D1%80%D0%B0%D0%B7%D0%B4%D0%B5%D0%BB%3A**%0A%0A**%D0%9E%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B5+%D0%BE%D1%88%D0%B8%D0%B1%D0%BA%D0%B8%3A**%0A%0A**%D0%9E%D0%B6%D0%B8%D0%B4%D0%B0%D0%B5%D0%BC%D0%BE%D0%B5+%D0%BF%D0%BE%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5%3A**%0A%0A" 
+       class="feedback-btn negative" target="_blank" rel="noopener">
+       🐛 Нашел ошибку
+    </a>
+    <a href="https://github.com/Alex-0293/TopWebStack/issues/new?assignees=&labels=enhancement%2C+suggestion&template=&title=%F0%9F%92%A1+%D0%9F%D1%80%D0%B5%D0%B4%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5&body=**%D0%9F%D1%80%D0%B5%D0%B4%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5%3A**%0A%0A**%D0%9E%D0%B1%D0%BE%D1%81%D0%BD%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%3A**%0A%0A**%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5+%D0%B4%D0%B5%D1%82%D0%B0%D0%BB%D0%B8%3A**%0A%0A" 
+       class="feedback-btn suggestion" target="_blank" rel="noopener">
+       💡 Есть идея
+    </a>
+    <a href="https://github.com/Alex-0293/TopWebStack/discussions" 
+       class="feedback-btn github" target="_blank" rel="noopener">
+       💬 Обсуждения
+    </a>
+  </div>
+  <p style="margin-top: 1rem; font-size: 0.85rem; color: #666;">
+    ⭐ Поставьте звезду на <a href="https://github.com/Alex-0293/TopWebStack" target="_blank" rel="noopener">GitHub</a>, если курс был полезен!
+  </p>
+</div>
+
+---
+
 **Успехов в разработке!** 🚀
 
 ---
@@ -175,7 +207,3 @@
 **Версия курса:** 1.1  
 **Дата публикации:** Октябрь 2025  
 **Обратная связь:** Создайте issue в репозитории курса
-
-**Навигация:**
-- [← Главная страница курса](README.md)
-- [→ Ресурсы и ссылки](RESOURCES-AND-LINKS.md)
