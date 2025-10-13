@@ -42,6 +42,43 @@
 - Pro Git Book: https://git-scm.com/book/en/v2
 - GitHub: https://github.com
 
+### Git Workflow в нашем стеке
+
+```mermaid
+graph TB
+    subgraph local["💻 Локальная разработка"]
+        direction TB
+        working["📁 Working Directory<br/>(рабочая директория)"]
+        staging["📋 Staging Area<br/>(индекс)"]
+        local_repo["💾 Local Repository<br/>(.git)"]
+        
+        working --> |"git add"| staging
+        staging --> |"git commit"| local_repo
+    end
+    
+    subgraph remote["☁️ Удаленный репозиторий"]
+        direction TB
+        github["🐙 GitHub/GitLab"]
+        ci_cd["⚙️ CI/CD Pipeline"]
+        deployment["🚀 Automatic Deploy"]
+        
+        github --> ci_cd
+        ci_cd --> deployment
+    end
+    
+    local_repo --> |"git push"| github
+    github --> |"git pull/fetch"| local_repo
+    
+    style local fill:#F05032,stroke:#D73027,stroke-width:3px,color:#fff
+    style remote fill:#4078c0,stroke:#2c5f99,stroke-width:3px,color:#fff
+    style working fill:#FF6B35,stroke:#E55100,stroke-width:2px,color:#fff
+    style staging fill:#FFA500,stroke:#FF8C00,stroke-width:2px,color:#fff
+    style local_repo fill:#F05032,stroke:#D73027,stroke-width:2px,color:#fff
+    style github fill:#24292e,stroke:#181717,stroke-width:2px,color:#fff
+    style ci_cd fill:#2088FF,stroke:#1976D2,stroke-width:2px,color:#fff
+    style deployment fill:#28a745,stroke:#22863a,stroke-width:2px,color:#fff
+```
+
 
 ## 4.2. Установка и настройка Git
 
@@ -101,6 +138,41 @@ git config --global alias.dfs 'diff --staged'
 
 
 ## 4.3. Основные команды Git
+
+### Жизненный цикл файлов в Git
+
+```mermaid
+graph LR
+    subgraph workspace["📁 Рабочая директория"]
+        direction TB
+        untracked["📄 Untracked<br/>(новые файлы)"]
+        modified["✏️ Modified<br/>(изменены)"]
+    end
+    
+    subgraph staging_area["📋 Staging Area"]
+        direction TB
+        staged["🎯 Staged<br/>(подготовлены)"]
+    end
+    
+    subgraph repository["💾 Git Repository"]
+        direction TB
+        committed["✅ Committed<br/>(зафиксированы)"]
+    end
+    
+    untracked --> |"git add"| staged
+    modified --> |"git add"| staged
+    staged --> |"git commit"| committed
+    committed --> |"edit"| modified
+    staged --> |"git restore --staged"| modified
+    
+    style workspace fill:#FFF3E0,stroke:#FF9800,stroke-width:3px,color:#333
+    style staging_area fill:#E8F5E8,stroke:#4CAF50,stroke-width:3px,color:#333
+    style repository fill:#E3F2FD,stroke:#2196F3,stroke-width:3px,color:#333
+    style untracked fill:#FFCDD2,stroke:#F44336,stroke-width:2px,color:#333
+    style modified fill:#FFF9C4,stroke:#FFC107,stroke-width:2px,color:#333
+    style staged fill:#C8E6C9,stroke:#4CAF50,stroke-width:2px,color:#333
+    style committed fill:#BBDEFB,stroke:#2196F3,stroke-width:2px,color:#333
+```
 
 ### Создание репозитория
 
@@ -169,6 +241,62 @@ git branch -D feature-auth    # Принудительное удаление
 # Переименование ветки
 git branch -m old-name new-name
 ```
+
+### Git Flow модель ветвления
+
+```mermaid
+graph TB
+    subgraph main_line["🎯 Main Branch"]
+        direction LR
+        initial["📦 Initial"] --> v1_0["🎉 v1.0"] --> v1_0_1["🔧 v1.0.1"]
+    end
+    
+    subgraph develop_line["🔧 Develop Branch"]
+        direction LR
+        dev_start["🚀 Start"] --> dev_auth["✅ Auth"] --> dev_api["✅ API"] --> dev_fix["🔧 Fix"]
+    end
+    
+    subgraph feature_work["💡 Feature Branches"]
+        direction TB
+        feat_auth["🔐 feature/auth"]
+        feat_api["🚀 feature/api"]
+    end
+    
+    subgraph hotfix_work["🚨 Hotfix Branch"]
+        direction TB
+        hotfix["🛡️ hotfix/security"]
+    end
+    
+    initial --> dev_start
+    feat_auth --> dev_auth
+    dev_auth --> feat_api
+    feat_api --> dev_api
+    dev_api --> v1_0
+    v1_0 --> hotfix
+    hotfix --> v1_0_1
+    hotfix --> dev_fix
+    
+    style main_line fill:#4CAF50,stroke:#388E3C,stroke-width:3px,color:#fff
+    style develop_line fill:#2196F3,stroke:#1976D2,stroke-width:3px,color:#fff
+    style feature_work fill:#FF9800,stroke:#F57C00,stroke-width:3px,color:#fff
+    style hotfix_work fill:#F44336,stroke:#D32F2F,stroke-width:3px,color:#fff
+    style initial fill:#66BB6A,stroke:#43A047,stroke-width:2px,color:#fff
+    style v1_0 fill:#4CAF50,stroke:#388E3C,stroke-width:2px,color:#fff
+    style v1_0_1 fill:#4CAF50,stroke:#388E3C,stroke-width:2px,color:#fff
+    style dev_start fill:#42A5F5,stroke:#1E88E5,stroke-width:2px,color:#fff
+    style dev_auth fill:#42A5F5,stroke:#1E88E5,stroke-width:2px,color:#fff
+    style dev_api fill:#42A5F5,stroke:#1E88E5,stroke-width:2px,color:#fff
+    style dev_fix fill:#42A5F5,stroke:#1E88E5,stroke-width:2px,color:#fff
+    style feat_auth fill:#FFB74D,stroke:#FB8C00,stroke-width:2px,color:#fff
+    style feat_api fill:#FFB74D,stroke:#FB8C00,stroke-width:2px,color:#fff
+    style hotfix fill:#EF5350,stroke:#E53935,stroke-width:2px,color:#fff
+```
+
+**Типы веток:**
+- **main** — production-ready код
+- **develop** — интеграционная ветка
+- **feature/** — разработка новых функций
+- **hotfix/** — срочные исправления в production
 
 ### Слияние и rebase
 
@@ -290,6 +418,55 @@ Host github.com
 ssh -T git@github.com
 # Вывод: Hi username! You've successfully authenticated...
 ```
+
+### GitHub Fork & Pull Request Workflow
+
+```mermaid
+graph TB
+    subgraph upstream["🏢 Upstream Repository"]
+        direction TB
+        orig_main["🎯 main branch"]
+    end
+    
+    subgraph fork["👤 Your Fork"]
+        direction TB
+        fork_main["🎯 fork/main"]
+        feature["💡 feature/new-api"]
+        
+        fork_main --> feature
+    end
+    
+    subgraph local["💻 Local Clone"]
+        direction TB
+        local_main["🎯 local/main"]
+        local_feature["💡 local/feature"]
+        
+        local_main --> local_feature
+    end
+    
+    orig_main --> |"fork"| fork_main
+    fork_main --> |"git clone"| local_main
+    local_feature --> |"git push origin"| feature
+    feature --> |"Pull Request"| orig_main
+    orig_main --> |"git pull upstream"| local_main
+    
+    style upstream fill:#24292e,stroke:#181717,stroke-width:3px,color:#fff
+    style fork fill:#6f42c1,stroke:#5a32a3,stroke-width:3px,color:#fff
+    style local fill:#F05032,stroke:#D73027,stroke-width:3px,color:#fff
+    style orig_main fill:#2ea44f,stroke:#22863a,stroke-width:2px,color:#fff
+    style fork_main fill:#8957e5,stroke:#6f42c1,stroke-width:2px,color:#fff
+    style feature fill:#ffa657,stroke:#fb8500,stroke-width:2px,color:#fff
+    style local_main fill:#ff6b6b,stroke:#ee5a52,stroke-width:2px,color:#fff
+    style local_feature fill:#ffaa5a,stroke:#ff8800,stroke-width:2px,color:#fff
+```
+
+**Этапы работы:**
+1. **Fork** — создание копии репозитория
+2. **Clone** — клонирование fork на локальную машину
+3. **Branch** — создание feature-ветки
+4. **Commit** — фиксация изменений
+5. **Push** — отправка в fork
+6. **Pull Request** — предложение изменений в upstream
 
 
 ## 4.6. Fine-grained Personal Access Tokens
@@ -463,6 +640,64 @@ chmod 600 ~/.netrc
 
 
 ## 4.7. GitHub Actions и CI/CD
+
+### CI/CD Pipeline с GitHub Actions
+
+```mermaid
+graph LR
+    subgraph developer["👨‍💻 Developer"]
+        direction TB
+        code["💻 Code"]
+        commit["📝 Commit"]
+        push["📤 Push"]
+        
+        code --> commit --> push
+    end
+    
+    subgraph github["🐙 GitHub"]
+        direction TB
+        repo["📦 Repository"]
+        actions["⚙️ GitHub Actions"]
+        
+        repo --> actions
+    end
+    
+    subgraph pipeline["🔄 CI/CD Pipeline"]
+        direction TB
+        build["🔨 Build"]
+        test["🧪 Test"]
+        deploy["🚀 Deploy"]
+        
+        build --> test --> deploy
+    end
+    
+    subgraph production["🖥️ Production"]
+        direction TB
+        komodo["🎛️ Komodo"]
+        containers["📦 Containers"]
+        
+        komodo --> containers
+    end
+    
+    push --> repo
+    actions --> build
+    deploy --> komodo
+    
+    style developer fill:#F05032,stroke:#D73027,stroke-width:3px,color:#fff
+    style github fill:#24292e,stroke:#181717,stroke-width:3px,color:#fff
+    style pipeline fill:#2088FF,stroke:#1976D2,stroke-width:3px,color:#fff
+    style production fill:#4CAF50,stroke:#388E3C,stroke-width:3px,color:#fff
+    style code fill:#FF6B35,stroke:#E55100,stroke-width:2px,color:#fff
+    style commit fill:#FFA500,stroke:#FF8C00,stroke-width:2px,color:#fff
+    style push fill:#F05032,stroke:#D73027,stroke-width:2px,color:#fff
+    style repo fill:#24292e,stroke:#181717,stroke-width:2px,color:#fff
+    style actions fill:#2088FF,stroke:#1976D2,stroke-width:2px,color:#fff
+    style build fill:#42A5F5,stroke:#1E88E5,stroke-width:2px,color:#fff
+    style test fill:#66BB6A,stroke:#43A047,stroke-width:2px,color:#fff
+    style deploy fill:#FFA726,stroke:#F57C00,stroke-width:2px,color:#fff
+    style komodo fill:#4CAF50,stroke:#388E3C,stroke-width:2px,color:#fff
+    style containers fill:#81C784,stroke:#66BB6A,stroke-width:2px,color:#fff
+```
 
 ### Базовый workflow
 
