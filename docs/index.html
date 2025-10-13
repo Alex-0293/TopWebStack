@@ -103,15 +103,15 @@
         top: 20px;
         right: 20px;
         z-index: 9999;
-        background: var(--theme-color, #42b983);
+        background: rgba(255, 255, 255, 0.2);
         border: none;
         border-radius: 50%;
         width: 50px;
         height: 50px;
         cursor: pointer;
-        font-size: 20px;
-        color: white;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        font-size: 24px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         transition: all 0.3s ease;
         display: flex;
         align-items: center;
@@ -154,8 +154,7 @@
       
       /* Dark theme adjustments */
       [data-theme="dark"] .theme-switcher {
-        background: #ffd700;
-        color: #333;
+        background: rgba(255, 255, 255, 0.1);
       }
 
       /* Language Switcher */
@@ -512,7 +511,7 @@
 
     <!-- Language Dropdown -->
     <div id="language-dropdown" class="language-dropdown">
-      <a href="#/" class="language-option active" data-lang="ru">
+      <a href="#/ru/" class="language-option active" data-lang="ru">
         <span class="language-flag">🇷🇺</span>
         <span class="language-name">Русский</span>
         <span class="language-check">✓</span>
@@ -693,6 +692,37 @@
         const languageSwitcher = document.getElementById('language-switcher');
         const languageDropdown = document.getElementById('language-dropdown');
         const languageOptions = document.querySelectorAll('.language-option');
+        
+        // Detect browser language and auto-redirect on first visit
+        function detectAndSetLanguage() {
+          const savedLang = localStorage.getItem('docsify-language');
+          
+          // If user hasn't set a language preference yet
+          if (!savedLang) {
+            const browserLang = navigator.language || navigator.userLanguage;
+            const langCode = browserLang.toLowerCase().split('-')[0]; // Get 'ru' from 'ru-RU'
+            
+            const currentPath = window.location.hash;
+            
+            // If browser is Russian and we're not already on Russian version
+            if (langCode === 'ru' && !currentPath.startsWith('#/ru/') && currentPath !== '#/' && currentPath !== '') {
+              window.location.hash = '#/ru/';
+              localStorage.setItem('docsify-language', 'ru');
+            }
+            // If browser is English and we're not already on English version
+            else if (langCode === 'en' && !currentPath.startsWith('#/en/')) {
+              window.location.hash = '#/en/';
+              localStorage.setItem('docsify-language', 'en');
+            }
+            // Default to Russian for root path
+            else if (currentPath === '#/' || currentPath === '') {
+              localStorage.setItem('docsify-language', 'ru');
+            }
+          }
+        }
+        
+        // Run language detection
+        detectAndSetLanguage();
         
         // Toggle dropdown
         function toggleDropdown(event) {
