@@ -220,6 +220,24 @@
         background: rgba(0, 0, 0, 0.2);
       }
 
+      /* Prism code highlighting improvements for dark theme */
+      [data-theme="dark"] .token.comment,
+      [data-theme="dark"] .token.prolog,
+      [data-theme="dark"] .token.doctype,
+      [data-theme="dark"] .token.cdata {
+        color: #7c8594 !important;
+        font-style: italic;
+      }
+
+      /* Улучшенная видимость комментариев в светлой теме */
+      .token.comment,
+      .token.prolog,
+      .token.doctype,
+      .token.cdata {
+        color: #6a737d !important;
+        font-style: italic;
+      }
+
       /* Feedback Widget Styles */
       .feedback-widget {
         margin: 3rem 0 2rem 0;
