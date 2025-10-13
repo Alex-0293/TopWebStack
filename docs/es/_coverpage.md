@@ -14,4 +14,4 @@
 Este curso presenta una pila de tecnologías moderna para el desarrollo de aplicaciones web
 
 [Comenzar a Aprender](#main)
-[Recursos y Enlaces](../RESOURCES-AND-LINKS.md)
+[Recursos y Enlaces](/es/RESOURCES-AND-LINKS.md)

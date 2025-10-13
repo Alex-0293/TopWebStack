@@ -14,4 +14,4 @@
 This course presents a modern technology stack for web application development
 
 [Start Learning](#main)
-[Resources and Links](../RESOURCES-AND-LINKS.md)
+[Resources and Links](/en/RESOURCES-AND-LINKS.md)
