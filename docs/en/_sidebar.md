@@ -17,7 +17,7 @@
   - [Chapter 13: Production](../chapter-13-production.md)
 
 - Resources
-  - [Links and Documentation](../RESOURCES-AND-LINKS.md)
+  - [Links and Documentation](RESOURCES-AND-LINKS.md)
 
 - Project
   - [GitHub Repository](https://github.com/Alex-0293/TopWebStack)
