@@ -1,5 +1,5 @@
 - Getting Started
-  - [Course Overview](README.md)
+  - [Course Overview](/en/README.md)
 
 - Course Chapters
   - [Chapter 1: Architecture](../chapter-01-architecture.md)
@@ -17,7 +17,7 @@
   - [Chapter 13: Production](../chapter-13-production.md)
 
 - Resources
-  - [Links and Documentation](RESOURCES-AND-LINKS.md)
+  - [Links and Documentation](/en/RESOURCES-AND-LINKS.md)
 
 - Project
   - [GitHub Repository](https://github.com/Alex-0293/TopWebStack)

@@ -1,5 +1,5 @@
 - Primeros Pasos
-  - [Descripción del Curso](README.md)
+  - [Descripción del Curso](/es/README.md)
 
 - Capítulos del Curso
   - [Capítulo 1: Arquitectura](../chapter-01-architecture.md)
@@ -17,7 +17,7 @@
   - [Capítulo 13: Producción](../chapter-13-production.md)
 
 - Recursos
-  - [Enlaces y Documentación](RESOURCES-AND-LINKS.md)
+  - [Enlaces y Documentación](/es/RESOURCES-AND-LINKS.md)
 
 - Proyecto
   - [Repositorio GitHub](https://github.com/Alex-0293/TopWebStack)
