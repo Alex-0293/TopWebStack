@@ -816,6 +816,169 @@ sudo journalctl -u cockpit.service -f
 sudo journalctl -u cockpit-ws -f
 ```
 
+---
+
+## 2.7. Первичная настройка системы
+
+### Обновление и установка базовых инструментов
+
+**Выполните на обеих VM:**
+
+```bash
+# Войдите как root или developer
+
+# Обновление системы
+sudo dnf update -y
+
+# Установка базовых инструментов
+sudo dnf install -y \
+  nano \
+  git \
+  curl \
+  wget \
+  htop \
+  net-tools \
+  bind-utils \
+  tar \
+  unzip
+
+# Настройка hostname (для VM1)
+sudo hostnamectl set-hostname almalinux-dev.local
+
+# Или для VM2
+sudo hostnamectl set-hostname almalinux-services.local
+
+# Проверка сети
+ip addr show
+ping -c 4 8.8.8.8
+ping -c 4 google.com
+
+# Настройка firewall
+sudo systemctl enable --now firewalld
+sudo firewall-cmd --permanent --add-service=ssh
+sudo firewall-cmd --permanent --add-service=cockpit
+sudo firewall-cmd --reload
+
+# Установка Cockpit (веб-интерфейс)
+sudo dnf install -y cockpit
+sudo systemctl enable --now cockpit.socket
+
+# Проверка доступа к Cockpit
+# VM1: https://192.168.1.150:9090
+# VM2: https://192.168.1.151:9090
+```
+
+---
+
+## 2.8. Мониторинг ресурсов
+
+### Утилиты мониторинга
+
+```bash
+# Установка инструментов мониторинга
+sudo dnf install -y htop iotop nethogs ncdu
+
+# Просмотр использования CPU и RAM
+htop
+
+# Просмотр дисковой активности
+iotop
+
+# Просмотр сетевой активности
+nethogs
+
+# Анализ использования диска
+ncdu /
+```
+
+### Мониторинг через Cockpit
+
+1. Откройте Cockpit: `https://192.168.1.150:9090`
+2. Войдите с учетными данными пользователя
+3. Просмотр метрик:
+   - **Overview** — общая информация о системе
+   - **Logs** — системные логи
+   - **Storage** — использование дисков
+   - **Networking** — сетевая активность
+   - **Podman Containers** — контейнеры (после установки Podman)
+
+---
+
+## 2.9. Troubleshooting
+
+### Проблемы с производительностью
+
+**Симптомы:**
+- Медленная работа VM
+- Высокая загрузка CPU/RAM
+- Долгая загрузка приложений
+
+**Решения:**
+
+```bash
+# 1. Проверка использования ресурсов
+htop
+podman stats
+
+# 2. Остановка ненужных сервисов
+podman stop $(podman ps -q)
+
+# 3. Очистка неиспользуемых ресурсов
+podman system prune -a --volumes
+
+# 4. Проверка swap
+free -h
+# Если swap активно используется - нужно больше RAM
+
+# 5. Увеличение ресурсов VM (на Hyper-V Host)
+# PowerShell:
+# Stop-VM -Name "AlmaLinux-Dev"
+# Set-VMMemory -VMName "AlmaLinux-Dev" -StartupBytes 16GB
+# Set-VMProcessor -VMName "AlmaLinux-Dev" -Count 8
+# Start-VM -Name "AlmaLinux-Dev"
+```
+
+### Проблемы с сетью
+
+```bash
+# Проверка сетевого подключения
+ping -c 4 8.8.8.8
+ping -c 4 google.com
+
+# Проверка DNS
+nslookup google.com
+
+# Перезапуск сети
+sudo systemctl restart NetworkManager
+
+# Проверка firewall
+sudo firewall-cmd --list-all
+
+# Проверка маршрутизации
+ip route show
+```
+
+### Проблемы с дисковым пространством
+
+```bash
+# Проверка использования диска
+df -h
+
+# Поиск больших файлов
+sudo du -h / | sort -rh | head -20
+
+# Очистка журналов
+sudo journalctl --vacuum-time=7d
+
+# Очистка кэша DNF
+sudo dnf clean all
+
+# Очистка Podman
+podman system prune -a --volumes
+```
+
+---
+
 
 **Практическое задание:**
 
